@@ -1,0 +1,41 @@
+<IfModule mod_rewrite.c>
+Options -Indexes
+
+RewriteEngine On
+RewriteBase /sistemaonline
+
+#Redireciona qualquer pedido de pasta raiz para páginas WEB
+RewriteCond %{REQUEST_URI} ^/sistemaonline/$
+RewriteRule (.*) pgweb/table-vs-div-o-bom [R]
+#
+
+RewriteCond %{REQUEST_URI} ^/sistemaonline/Logar$
+RewriteRule (.*) Login/login.php?D=%{REQUEST_URI}&URL=%{QUERY_STRING} [L]
+
+RewriteCond %{REQUEST_URI} ^.*/editpg
+RewriteRule (.*) EditPages/index.php?editpgweb=$1&Req=%{HTTP_REFERER}&Metodo=%{REQUEST_METHOD}&SSL=%{HTTPS}&sendChaves=%{QUERY_STRING} [L]
+
+RewriteCond %{REQUEST_URI} ^.*/pgweb/.*
+RewriteRule (.*) LoadPages/index.php?pgweb=%{REQUEST_URI}&URL=%{QUERY_STRING} [L]
+
+RewriteCond %{REQUEST_URI} /ControladorTabelas/$
+RewriteRule (.*) Controller/TBL/Tabelas.php?URL=$1&Req=%{HTTP_REFERER}&Metodo=%{REQUEST_METHOD}&SSL=%{HTTPS} [L]
+
+RewriteCond %{REQUEST_URI} /ControladorPages/$
+RewriteRule (.*) Controller/LP/LoadPages.php?URL=$1&Req=%{HTTP_REFERER}&Metodo=%{REQUEST_METHOD}&SSL=%{HTTPS} [L]
+
+#----------------------------------------------------------
+
+RewriteCond %{REQUEST_URI} /Gerente
+RewriteCond %{QUERY_STRING} ^s=[a-z|A-z]+
+RewriteRule (.*) TiposUsuarios/Gerente/tmp1/Gerente.php?URL=$1&Req=%{HTTP_REFERER}&Metodo=%{REQUEST_METHOD}&SSL=%{HTTPS}&sendChaves=%{QUERY_STRING} [L]
+
+#----------------------------------------------------------
+
+RewriteCond %{REQUEST_URI} /Validar/$
+RewriteRule (.*) Login/verify.php?URL=$1&Req=%{HTTP_REFERER}&Metodo=%{REQUEST_METHOD}&SSL=%{HTTPS} [L]
+
+
+</IfModule>
+
+
