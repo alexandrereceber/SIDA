@@ -48,7 +48,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="./CSS/Componentes/TabelaHTML.css">
 
-        <link rel="stylesheet" href="./CSS/LoadPage/LoadPageCSS.css?3ddd">
+        <link rel="stylesheet" href="./CSS/LoadPage/LoadPageCSS.css?s=<?php echo time() ?>"">
         <link rel="stylesheet" href="./CSS/CxFerramentaWEB/CxFerramentaWD.css?s=<?php echo time() ?>">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         
@@ -69,13 +69,13 @@ and open the template in the editor.
         
     </head>
     <body onresize="ObjetoSelecionado.setRenderizarCFI()">
-        <div  class="Barra-Menu-Superior" id='Barra-Menu-Superior'></div>
-        <div class="Pagina-Central" style="display: table" id='Pagina-Central'>
-            <div class="BLE" style="display: table-cell" id='BLE'></div>
-            <div class="BCD" style="display: table-cell" id='BCD'></div>
-            <div class="BLD" style="display: table-cell" id='BLD'></div>
+        <div  class="Barra-Menu-Superior S-EMPTY-Barra-Menu-Superior" id='Barra-Menu-Superior'><i class="material-icons" style="font-size: 56px;margin: auto;color: #a2c9e459;">info_outline</i></div>
+        <div class="Pagina-Central" id='Pagina-Central'>
+            <div class="BLE S-EMPTY-BLE" id='BLE'><i class="material-icons" style="font-size: 56px;margin: auto;color: #a2c9e459;">info_outline</i></div>
+            <div class="BCD S-EMPTY-BCD" id='BCD'><i class="material-icons" style="font-size: 56px;margin: auto;color: #a2c9e459;">info_outline</i></div>
+            <div class="BLD S-EMPTY-BLD" id='BLD'><i class="material-icons" style="font-size: 56px;margin: auto;color: #a2c9e459;">info_outline</i></div>
         </div>
-        <div class="Barra-Status" id='Barra-Status' onmouseup=""></div>
+        <div class="Barra-Status S-EMPTY-BLE-Barra-Status" id='Barra-Status' onmouseup=""><i class="material-icons" style="font-size: 56px;margin: auto;color: #a2c9e459;">info_outline</i></div>
     </body>
     
     

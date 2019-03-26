@@ -9,41 +9,71 @@ and open the template in the editor.
 */
 .Barra-Menu-Superior{
     border: solid 1px;
-    background-color: #27db0c3b;
+    border-color: #d0cdc9;
+    background-color: #aaafaa21;
     border-style: dashed;
     text-align: center;
     width: 100%;
 }
-.Pagina-Central{
-    
-}
+.Pagina-Central{display: flex;}
 .BLE{
     border: solid 1px;
-    background-color: #27db0c3b;
+    border-color: #d0cdc9;
+    background-color: #aaafaa21;
     border-style: dashed;
     text-align: center;
     max-width: 25vw;
 }
 .BCD{
     border: solid 1px;
-    background-color: #27db0c3b;
+    border-color: #d0cdc9;
+    background-color: #aaafaa21;
     border-style: dashed;
     text-align: justify;
-    max-width: 100vw;    
+    max-width: 100vw;
 }
 .BLD{
     border: solid 1px;
-    background-color: #27db0c3b;
+    border-color: #d0cdc9;
+    background-color: #aaafaa21;
     border-style: dashed;
     text-align: center;
     max-width: 15vw;
 }
 .Barra-Status{
     border: solid 1px;
-    background-color: #27db0c3b;
     border-style: dashed;
-    background-color: #27db0c3b;
-    background-color: #27db0c3b;
+    border-color: #d0cdc9;
+    background-color: #aaafaa21;
     text-align: center;
     width: 100%;
+}
+
+.S-EMPTY-Barra-Menu-Superior{
+    height: 15vh;
+    display: flex;
+}
+
+.S-EMPTY-BLE{
+    width: 15vw;
+    height: 70vh;
+    display: inline-flex;
+    margin: auto;
+}
+.S-EMPTY-BCD{
+    width: 70vw;
+    height: 70vh;
+    display: inline-flex;
+    margin: auto;
+}
+.S-EMPTY-BLD{
+    width: 15vw;
+    height: 70vh;
+    display: inline-flex;
+    margin: auto;
+}
+
+.S-EMPTY-BLE-Barra-Status{
+    height: 15vh;
+    display: inline-flex;
 }

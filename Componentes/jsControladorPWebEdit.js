@@ -76,7 +76,7 @@ class CPWeb extends JSController{
                 }
             }else{
                 $("#Barra-Menu-Superior").html("");
-                $("#Barra-Menu-Superior").css("display","none");
+                //$("#Barra-Menu-Superior").css("display","none");
             }
         }catch(err){
               $("#Barra-Menu-Superior").html("<link href=\"https://fonts.googleapis.com/icon?family=Material+Icons\" rel=\"stylesheet\"><i title=\""+ err.message +"\" class=\"material-icons\" style=\"font-size:100px; color: #0008f954\">error</i>");
@@ -93,7 +93,7 @@ class CPWeb extends JSController{
                 }
             }else{
                 $("#BLE").html("");
-                $("#BLE").css("display","none");
+                //$("#BLE").css("display","none");
             }
         }catch(err){
               $("#BLE").html("<link href=\"https://fonts.googleapis.com/icon?family=Material+Icons\" rel=\"stylesheet\"><i title=\""+ err.message +"\" class=\"material-icons\" style=\"font-size:100px; color: #0008f954\">error</i>");
@@ -111,7 +111,7 @@ class CPWeb extends JSController{
                 }
             }else{
                 $("#BCD").html("");
-                $("#BCD").css("display","none");
+                //$("#BCD").css("display","none");
             }
          }catch(err){
             $("#BCD").html("<link href=\"https://fonts.googleapis.com/icon?family=Material+Icons\" rel=\"stylesheet\"><i title=\""+ err.message +"\" class=\"material-icons\" style=\"font-size:100px; color: #0008f954\">error</i>");
@@ -129,7 +129,7 @@ class CPWeb extends JSController{
                 }
             }else{
                 $("#BLD").html("");
-                $("#BLD").css("display","none");
+                //$("#BLD").css("display","none");
             }
         }catch(err){
             $("#BLD").html("<link href=\"https://fonts.googleapis.com/icon?family=Material+Icons\" rel=\"stylesheet\"><i title=\""+ err.message +"\" class=\"material-icons\" style=\"font-size:100px; color: #0008f954\">error</i>");
@@ -148,7 +148,7 @@ class CPWeb extends JSController{
 
             }else{
                 $("#Barra-Status").html("");
-                $("#Barra-Status").css("display","none");
+                //$("#Barra-Status").css("display","none");
             }
         }catch(err){
             $("#Barra-Status").html("<link href=\"https://fonts.googleapis.com/icon?family=Material+Icons\" rel=\"stylesheet\"><i title=\""+ err.message +"\" class=\"material-icons\" style=\"font-size:100px; color: #0008f954\">error</i>");
