@@ -51,3 +51,7 @@ body{
 .mdl-dialog__content{
     color: white;
 }
+
+.Linha_CPassword{
+    display: none;
+}

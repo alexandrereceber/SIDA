@@ -17,7 +17,15 @@ class ConfigSystema {
      * Variável que armazena o tempo final do processmanto.
      * @var int EndClock;
      */
-    private static $StartClock = [], $EndClock = [];
+    private static 
+            $StartClock = [], 
+            $EndClock = [],
+            $vrf_Password = true, //Validar Senha no sistema
+            $vrf_Habilitado = false, //Habilita a verificação de usuário esta habilitado no sistema.
+            $vrf_Dispositivo = true, // Verificar qual dispositivo o sistema esta logando
+            $Dispositivos = [
+                                "pc"
+                            ];
     
     /**
      * Retorna o caminho da pasta "BancoDados" dentro da estrutura de diretório atual.
@@ -91,6 +99,27 @@ class ConfigSystema {
         
         return $Local[$type];
     }
+    
+    public static function getValidarSenha(){
+        return self::$vrf_Password;
+    }
+    
+    public static function getValidarHabilitacao(){
+        return self::$vrf_Habilitado;
+    }
+    
+    public static function getValidarDispositivo(){
+        return self::$vrf_Dispositivo;
+    }
+    
+    public static function getDispositivos($Disp) {
+        foreach (self::$Dispositivos as $Chv => $Valor) {
+            if($Valor === $Disp){
+                return true;
+            }
+        }
+        return false;
+    }    
 }
 
 /**

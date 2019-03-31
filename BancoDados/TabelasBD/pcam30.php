@@ -126,7 +126,7 @@ class login extends ModeloTabelas{
                                          * Nome do campo que será exportado para o controller, esse campo deverá ter o nome diferente do nome
                                          * original por motivo de segurança
                                          */
-                                        "Name" => "", 
+                                        "Name" => "username", 
                                         /**
                                          * Regex do campo input text
                                          */
@@ -209,7 +209,7 @@ class login extends ModeloTabelas{
                                         "Placeholder"=> "", 
                                         "TypeComponente"=>"", 
                                         "TypeConteudo"=> ["text"], 
-                                        "Name" => "", 
+                                        "Name" => "password", 
                                         "Patterns"=> "", 
                                         "Titles" => "",
                                         "Required" => "",
@@ -395,7 +395,7 @@ class login extends ModeloTabelas{
     }
     
     public function getVirtual() {
-        return true;
+        return false;
     }
 
     public function getNomeReal() {
@@ -415,7 +415,7 @@ class login extends ModeloTabelas{
     }
 
     public function getTituloTabela() {
-        return "MÁQUINAS NO DOMÍNIO";
+        return "USUÁRIOS CADASTRADOS NO SISTEMA";
     }
 
     public function getLimite() {
@@ -473,7 +473,14 @@ class login extends ModeloTabelas{
     }
 
     public function validarConteudoCampoRegex(&$Dados) {
-        
+        foreach ($Dados as $key => $value) {
+            $Valido = preg_match("/script|<script>|!|;/i", $Dados[$key]["value"]);
+            if($Valido){ 
+                $Campo = $Dados[$key]["name"];
+                throw new PDOException("O conteúdo do campo: $Campo contém valores inválidos!", 10001);
+            }
+
+        }
     }
 
 }

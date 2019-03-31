@@ -473,7 +473,15 @@ class login extends ModeloTabelas{
     }
 
     public function Jobs($Tipo, &$ConjuntoDados) {
-        
+        switch ($Tipo) {
+            case "InserirDados":
+
+
+                break;
+
+            default:
+                break;
+        }
     }
 
     public function getTotalPageVisible() {

@@ -32,7 +32,7 @@ if(@!include_once "../Config/Configuracao.php"){ //Include que contém configura
     $ResultRequest["Modo"]        = "Include";
     $ResultRequest["Error"]       = true;
     $ResultRequest["Codigo"]      = 3588;
-    $ResultRequest["Mensagem"]    = "O arquivo de configuração não foi encontrado. Controller";
+    $ResultRequest["Mensagem"]    = "O arquivo de configuração não foi encontrado. verify.php";
     
     echo json_encode($ResultRequest);
     exit;
@@ -44,8 +44,8 @@ if(@!include_once "../Config/Configuracao.php"){ //Include que contém configura
 if(!@include_once ConfigSystema::get_Path_Systema() . '/BancoDados/TabelasBD/'. AcessoBancoDados::get_BaseDados() .'.php'){
     $ResultRequest["Modo"]        = "Include";
     $ResultRequest["Error"]       = true;
-    $ResultRequest["Codigo"]      = 3589;
-    $ResultRequest["Mensagem"]    = "A configuração do banco de dados não foi encontrado. Controller";
+    $ResultRequest["Codigo"]      = 3593;
+    $ResultRequest["Mensagem"]    = "A configuração do banco de dados não foi encontrado. verify.php";
     
     echo json_encode($ResultRequest); 
     exit;
@@ -62,37 +62,71 @@ $Metodo         = $_REQUEST["Metodo"];
 $SSL            = $_REQUEST["SSL"];
 $Usuario        = $_POST["sendUsuario"];
 $Senha          = md5($_POST["sendSenha"]);
+$Dispositivo    = $_REQUEST["sendDispositivo"];
+
 
 try {
+    if(ConfigSystema::getValidarDispositivo()){
+        if(!$Dispositivo){
+            throw new Exception("O dispositivo utilidado não foi informado", 3594);
+            exit;
+                }
+        if(!ConfigSystema::getDispositivos($Dispositivo)){
+            throw new Exception("O dispositivo utilidado não é válido para esse sistema.", 3596);
+            exit;
+
+        }
+    }
+
     $SelecionarDados = new login();
 
     $SelecionarDados->setUsuario("alexandre");
-    $FiltroCampos = [
-                        [
+    /**
+     * Instrução que verifica se o sistema irá autenticar o usuário pelo conjunto usuário e senha ou somente usuário.
+     */
+    if (ConfigSystema::getValidarSenha())
+        $FiltroCampos = [
                             [
-                                0=>0,
-                                1=>"=",
-                                2=>$Usuario
-                            ],
-                            [
-                                0=>1,
-                                1=>"=",
-                                2=>$Senha,
-                                3=> 1
+                                [
+                                    0=>0,
+                                    1=>"=",
+                                    2=>$Usuario
+                                ],
+                                [
+                                    0=>1,
+                                    1=>"=",
+                                    2=>$Senha,
+                                    3=> 1
+                                ]
                             ]
-                        ]
-                    ];
+                        ];
+    else
+        $FiltroCampos = [
+                            [
+                                [
+                                    0=>0,
+                                    1=>"=",
+                                    2=>$Usuario
+                                ]
+                            ]
+                        ];
+    
+    
     $SelecionarDados->setFiltros($FiltroCampos);
     $SelecionarDados->Select();
     $Saida = $SelecionarDados->getArrayDados()[0];
     
-    if($Saida[3] != 1){
-        throw new Exception("O usuário não existe ou não está habilitado no sistema. Favor entrar em contato com o administrador.", 3592);
-        exit;
-    }
+    /**
+     * O sistema validará se o usuário esta habilitado ou não somente se a configuração, abaixo, estiver como true;
+     */
+    if(ConfigSystema::getValidarHabilitacao())
+        if($Saida[3] != 1){
+            throw new Exception("O usuário não existe ou não está habilitado no sistema. Favor entrar em contato com o administrador.", 3592);
+            exit;
+        }
     
     if(count($Saida) == 0){
-        throw new Exception("Usuário e senha inválidos.", 3590);
+        throw new Exception("Usuário ou senha inválidos.", 3595);
     }
     
     $SDados["Active"]   = true;
@@ -120,7 +154,7 @@ try {
  switch ($Saida[2]) {
      case "Gerente":
          $ResultRequest["Error"] = false;
-         $ResultRequest["Modo"] = "S";
+         $ResultRequest["Modo"] = "Login";
          $ResultRequest["Chave"] = $Chave;
          $ResultRequest["TipoUsuario"] = "Gerente";
          $ResultRequest["Tentativas"] = $SDados["tentativa"];
@@ -136,7 +170,7 @@ try {
 
 
 } catch (Exception $ex) {
-    $ResultRequest["Modo"]      = "L";
+    $ResultRequest["Modo"]      = "Login";
     $ResultRequest["Error"]     = true;
     $ResultRequest["Codigo"]    = $ex->getCode();
     $ResultRequest["Mensagem"]  = $ex->getMessage();

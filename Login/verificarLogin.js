@@ -12,16 +12,24 @@ dialog.querySelector('.close').addEventListener('click', function() {
     
 async function EnviarDados(obj){
     event.preventDefault();
-    var Campos = $(obj).serializeArray(), sendUsuario = "", sendSenha = "";
+    var Campos = $(obj).serializeArray(), 
+        sendUsuario = "", 
+        sendSenha = "", 
+        BtsendContraSenha = "", 
+        sendContraSenha = "",
+        SiteEnvioDados = "";
     
-    sendUsuario = obj[0].value == "" ? true : false;
-    sendSenha   = obj[1].value == "" ? true : false;
-        
+    sendUsuario       = obj[0].value == "" ? true : false;
+    sendSenha         = obj[1].value == "" ? true : false;
+    BtsendContraSenha = obj[3].checked     ? true : false;
+    if(BtsendContraSenha)
+        sendContraSenha = obj[2].value == "" ? true : false;
+    
     var snackbarContainer = document.querySelector('#Barra-de-Mensagem');
     var handler = function() {};    
     var data = {
       message: '',
-      timeout: 3000,
+      timeout: 4000,
       actionHandler: handler,
       actionText: 'OK'
     };
@@ -38,13 +46,37 @@ async function EnviarDados(obj){
         snackbarContainer.MaterialSnackbar.showSnackbar(data);        
         return false;
     }
-
+    if(BtsendContraSenha){
+        if(sendContraSenha){
+            obj[2].focus();
+            data.message = "Repita a senha novamente!"
+            snackbarContainer.MaterialSnackbar.showSnackbar(data);        
+            return false;
+        }
+        if(!(obj[2].value == obj[1].value)){
+            obj[2].focus();
+            obj[2].value = "";
+            
+            data.message = "Os 2 campos de senha estão diferentes, a senha deve ser a mesma."
+            snackbarContainer.MaterialSnackbar.showSnackbar(data);        
+            return false;
+        }
+        
+    }
     sendUsuario = obj[0].value;
     sendSenha   = obj[1].value;
+    BtsendContraSenha == true ? (sendContraSenha = obj[2].value) : false;
     
-    var Dados = new JSController("http://"+ Padrao.getHostServer() +"/sistemaonline/Validar/"), Result = "";
+    SiteEnvioDados = BtsendContraSenha == true ? ("/sistemaonline/Cadastrar/") : ("/sistemaonline/Validar/");
+    
+    
+    var Dados = new JSController("http://"+ Padrao.getHostServer() + SiteEnvioDados), Result = "";
     Dados.DadosEnvio.sendUsuario    = sendUsuario;
     Dados.DadosEnvio.sendSenha      = sendSenha;
+    
+    BtsendContraSenha == true ? (Dados.DadosEnvio.sendContraSenha = sendContraSenha) : false;
+    
+    Dados.DadosEnvio.sendDispositivo = "pc"
 
     Result = await Dados.Atualizar();   
     if(Result.Error != false){
@@ -53,10 +85,23 @@ async function EnviarDados(obj){
                 Result.Mensagem = "Banco de dados não encontrado. Favor entrar em contato com o administrador."
                 break;
 
+            case 23000:
+                Result.Mensagem = "Usuário já cadastrado, favor escolha outro nome de usuário!"
+                obj[0].focus();
+                obj[0].value = "";
+                break;
+
             case 3589:
                 break;
 
             case 3590:
+                break;
+
+            case 3595:
+                break;
+
+            case 3596:
+                Result.Mensagem = "O dispositivo utilidado não é válido para esse sistema."
                 break;
 
             case 3591:
@@ -73,7 +118,24 @@ async function EnviarDados(obj){
         $(".mdl-dialog__content").html("<h4>" +  Result.Mensagem + "</h4>");
         dialog.showModal();
     }else{
-        window.location = Dados.ResultSet.Header;
+        if(Result.Modo == "Login")
+            window.location = Result.Header;
+        else if(Result.Modo == "Cadastro"){
+            $(".mdl-dialog__content").html("<h4>Usuário cadastrado com sucesso!.</h4>");
+            dialog.showModal();            
+            $("#android").click();
+        }
     }
     
+}
+
+function setCadastrar(o){
+    if(o.checked){
+        $(".Linha_CPassword").css("display","inline-block");
+        $(".LoginCadastrar").text("Cadastrar")
+    }
+    else{
+        $(".LoginCadastrar").text("Acessar")
+        $(".Linha_CPassword").css("display","none");
+    }
 }

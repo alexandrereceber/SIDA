@@ -32,8 +32,12 @@ RewriteRule (.*) TiposUsuarios/Gerente/tmp1/Gerente.php?URL=$1&Req=%{HTTP_REFERE
 
 #----------------------------------------------------------
 
+
 RewriteCond %{REQUEST_URI} /Validar/$
 RewriteRule (.*) Login/verify.php?URL=$1&Req=%{HTTP_REFERER}&Metodo=%{REQUEST_METHOD}&SSL=%{HTTPS} [L]
+
+RewriteCond %{REQUEST_URI} /Cadastrar/$
+RewriteRule (.*) CadastrarUsuario/cadastrar.php?URL=$1&Req=%{HTTP_REFERER}&Metodo=%{REQUEST_METHOD}&SSL=%{HTTPS} [L]
 
 
 </IfModule>

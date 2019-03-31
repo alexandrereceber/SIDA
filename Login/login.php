@@ -22,7 +22,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css" >
         <link   rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
-        <link rel="stylesheet" href="./Login/TL.css?yy">
+        <link rel="stylesheet" href="./Login/TL.css?yy5">
 
         <script defer src="https://code.getmdl.io/1.3.0/material.min.js" ></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" defer></script>
@@ -30,7 +30,7 @@ and open the template in the editor.
         <script  src="./Scripts/bootbox/bootbox.js?5s" defer="defer"></script>
 
         <script src="./Scripts/jsControlador/jsConstroller.js?dssdd" defer="defer"></script>     
-        <script src="./Login/verificarLogin.js?23shd" defer></script>
+        <script src="./Login/verificarLogin.js?2hd" defer></script>
 
         
     </head>
@@ -55,8 +55,20 @@ and open the template in the editor.
                               <label class="mdl-textfield__label" for="Password" >Senha</label>
                             </div>
                         </div>
+                        <div class="Linha_CPassword" id="RepeteSenha">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" type="password" id="sample3" name="Contrapassword" >
+                              <label class="mdl-textfield__label" for="Password" >Repetir Senha</label>
+                            </div>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="android" style="text-align: left;color: #00000087;">
+                                <input type="checkbox" id="android" class="mdl-checkbox__input" onchange="setCadastrar(this)" />
+                              <span class="mdl-checkbox__label">1° Acesso</span> <!-- Checkbox Label -->
+                            </label>                            
+                        </div>
                         <div class="Linha_BotaoEnvio">
-                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent LoginCadastrar">
                               Acessar
                             </button>   
                         </div>
