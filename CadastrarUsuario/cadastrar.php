@@ -2,7 +2,7 @@
 
 /* 
  * Verifica o usuário e senha
- * Esquema da tabela que deverá ser criada em todos os banco de dados.
+ * Esquema da tabela que deverá ser criada em todos os banco de dados para o login e cadastro de usuário.
  * 
  * CREATE TABLE `login` (
  `idLogin` int(11) NOT NULL AUTO_INCREMENT,
@@ -19,11 +19,11 @@
 
 
 /**
- * Criado: 30/03/2019
+ * Criado: 31/03/2019
  * Modificado: 
  */
 /**
- * Recebe todas as requisições referentes ao login.
+ * Recebe todas as requisições referentes ao cadastro de usuário.
  * @Autor 04953988612
  */
 
@@ -87,7 +87,7 @@ try {
 
     $InserirDados = new login();
 
-    $InserirDados->setUsuario("Alexandre");
+    $InserirDados->setUsuario("Alexandr");
     
     $Dados = [
                 [name=>"username",value=> $Usuario],
@@ -96,7 +96,8 @@ try {
     
     $Result = $InserirDados->InserirDadosTabela($Dados);
     
-    if($Result == false) throw new PDOException("Ocorreram erros ao cadastrar usuário. Favor entrar em contato com o administrador!", 3597);
+    if($Result == false) 
+        throw new PDOException("Ocorreram erros ao cadastrar usuário. Favor entrar em contato com o administrador!", 3597);
     
     $InserirDados->EndClock();
     $ResultRequest["Modo"]             = "Cadastro";

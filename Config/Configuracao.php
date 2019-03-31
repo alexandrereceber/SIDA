@@ -23,9 +23,13 @@ class ConfigSystema {
             $vrf_Password = true, //Validar Senha no sistema
             $vrf_Habilitado = false, //Habilita a verificação de usuário esta habilitado no sistema.
             $vrf_Dispositivo = true, // Verificar qual dispositivo o sistema esta logando
-            $Dispositivos = [
+            $Dispositivos = [ //Tipos de dispositivos que são liberado no sistema, essa lista somente será utilizada, caso, 
+                              //a variável $vrf_Dispositivo estive habilitada.
                                 "pc"
-                            ];
+                            ],
+            $Email = true,
+            $Mensagem = true;
+    
     
     /**
      * Retorna o caminho da pasta "BancoDados" dentro da estrutura de diretório atual.
@@ -99,19 +103,33 @@ class ConfigSystema {
         
         return $Local[$type];
     }
-    
+    /**
+     * Configura o sistema a validar obrigatoriamente usuário e senha no sistema. Caso seja false, o sistema irá validar
+     * somente o nome do usuário sem necessidade de senha.
+     * @return bool
+     */
     public static function getValidarSenha(){
         return self::$vrf_Password;
     }
-    
+    /**
+     * Cofigura o sistema a verificar se o usuário esta ou não habilitado, essa habilitação deverá ocorrer manualmente.
+     * @return bool
+     */
     public static function getValidarHabilitacao(){
         return self::$vrf_Habilitado;
     }
-    
+    /**
+     * Configura o sistema a verificar o tipo de dispositivo que esta requisitando os pedidos.
+     * @return bool
+     */
     public static function getValidarDispositivo(){
         return self::$vrf_Dispositivo;
     }
-    
+    /**
+     * Lista dos dispostivos autorizados a usar o sistema.
+     * @param Array $Disp
+     * @return boolean
+     */
     public static function getDispositivos($Disp) {
         foreach (self::$Dispositivos as $Chv => $Valor) {
             if($Valor === $Disp){
@@ -119,7 +137,22 @@ class ConfigSystema {
             }
         }
         return false;
-    }    
+    }
+    /**
+     * Cofigura o sistema, após o cadastro do usuário, a enviá-lo um email de confirmação.
+     * Isso se a opção $vrf_Habilitado estiver habilitada, caso contrário, não será enviado email de confirmação.
+     * @return boolean
+     */
+    public static function getEnviarEmail(){
+        return self::$Email;
+    }
+    /**
+     * Configura o sistema a enviar uma mensagem de confirmação ao usuário . Não esta implementado ainda.
+     * @return boolena
+     */
+    public static function getEnviarMensagem(){
+        return self::$Mensagem;
+    }
 }
 
 /**

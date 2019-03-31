@@ -2,8 +2,8 @@
 
 /* 
  * Verifica o usuário e senha
- * Esquema da tabela que deverá ser criada em todos os banco de dados.
- * 
+ * Esquema da tabela que deverá ser criada em todos os banco de dados para o login e cadastro de usuário
+ * * 
  * CREATE TABLE `login` (
  `idLogin` int(11) NOT NULL AUTO_INCREMENT,
  `usuario` varchar(50) NOT NULL,
