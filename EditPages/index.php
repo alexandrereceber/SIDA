@@ -11,7 +11,7 @@
 if(@!include_once "../Config/Configuracao.php"){ //Include que contém configurações padrões do sistema.
     $ResultRequest["Erros"]["Modo"]        = "Include";
     $ResultRequest["Erros"][0]             = true;
-    $ResultRequest["Erros"][1]             = 3588;
+    $ResultRequest["Erros"][1]             = 40001;
     $ResultRequest["Erros"][2]             = "O arquivo de cabecalho não foi Cabeçaalho. Cabeçalho Geral";
     
     echo json_encode($ResultRequest);

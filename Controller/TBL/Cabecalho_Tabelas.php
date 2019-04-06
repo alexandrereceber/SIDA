@@ -2,7 +2,7 @@
 if(@!include_once __DIR__ . "/../../Config/Configuracao.php"){ //Include que contém configurações padrões do sistema.
     $ResultRequest["Modo"]        = "Include";
     $ResultRequest["Error"]    = true;
-    $ResultRequest["Codigo"]   = 3588;
+    $ResultRequest["Codigo"]   = 3692;
     $ResultRequest["Mensagem"] = "O arquivo de Configuração não foi encontrado. Cabecalho_Tabelas";
     
     echo json_encode($ResultRequest);

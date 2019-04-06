@@ -125,6 +125,16 @@ try {
             exit;
         }
     
+    if(ConfigSystema::getValidarTentativas()){
+        if($Saida[4] > ConfigSystema::getTentativasTotal()){
+            throw new Exception("Usuário bloqueado, favor entrar em contato com o administrador.", 3596);
+            exit;
+        }
+    }
+        
+    /**
+     * O Usuário ou a senha que foram informados estão incorretos.
+     */
     if(count($Saida) == 0){
         throw new Exception("Usuário ou senha inválidos.", 3595);
     }
@@ -134,6 +144,7 @@ try {
     $SDados["Password"] = $Senha;
     $SDados["Tusuario"] = $Saida[2];
     $SDados["Tempo"]    = time();
+    $Dados["tentativas"] = $Saida[4];
     $SDados["ID"]       = md5($Saida[0]);
 
     session_save_path( __DIR__ . "/../Account/Sessoes");

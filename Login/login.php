@@ -29,7 +29,7 @@ and open the template in the editor.
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" defer></script>
         <script  src="./Scripts/bootbox/bootbox.js?5s" defer="defer"></script>
 
-        <script src="./Scripts/jsControlador/jsConstroller.js?dssdd" defer="defer"></script>     
+        <script src="./Scripts/jsControlador/jsConstroller.js?<?php echo time();?>" defer="defer"></script>     
         <script src="./Login/verificarLogin.js?2hd" defer></script>
 
         

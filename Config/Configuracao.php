@@ -22,10 +22,13 @@ class ConfigSystema {
             $EndClock = [],
             $vrf_Password = true, //Validar Senha no sistema
             $vrf_Habilitado = false, //Habilita a verificação de usuário esta habilitado no sistema.
+            $vrf_Tentativas = false, //Habilita a verificação do número de tentativas de acesso antes que a senha seja bloqueada.
+            $Tentativas = 5, //Informa o total de tentativas que serão aceitas antes de bloquear o usuário.
             $vrf_Dispositivo = true, // Verificar qual dispositivo o sistema esta logando
             $Dispositivos = [ //Tipos de dispositivos que são liberado no sistema, essa lista somente será utilizada, caso, 
                               //a variável $vrf_Dispositivo estive habilitada.
-                                "pc"
+                                "pc",
+                                "Movel"
                             ],
             $Email = true,
             $Mensagem = true;
@@ -117,6 +120,21 @@ class ConfigSystema {
      */
     public static function getValidarHabilitacao(){
         return self::$vrf_Habilitado;
+    }
+    /**
+     * Retorna o total de tentativas de acesso ao sistema, antes do usuário ser bloqueado.
+     * @return int
+     */
+    public static function  getTentativasTotal(){
+        return self::$Tentativas;
+    }
+
+    /**
+     * Cofigura o sistema a verificar se o número de tentativas foram excedidas, essa habilitação deverá ocorrer manualmente.
+     * @return bool
+     */
+    public static function getValidarTentativas(){
+        return self::$vrf_Tentativas;
     }
     /**
      * Configura o sistema a verificar o tipo de dispositivo que esta requisitando os pedidos.
