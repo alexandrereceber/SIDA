@@ -126,7 +126,7 @@ try {
         }
     
     if(ConfigSystema::getValidarTentativas()){
-        if($Saida[4] > ConfigSystema::getTentativasTotal()){
+        if($Saida[4] >= ConfigSystema::getTentativasTotal()){
             throw new Exception("Usuário bloqueado, favor entrar em contato com o administrador.", 14005);
             exit;
         }
@@ -153,13 +153,21 @@ try {
                 $SelecionarDados->setFiltros($FiltroCampos);
                 $SelecionarDados->Select();            
                 $UserPSError = $SelecionarDados->getArrayDados()[0];
-                $Tentativa = ++$UserPSError[4];
+                /**
+                 * Verifica, antes de incrementar mais uma tentativa, se o usuário esta bloqueado.
+                 */
+                if($UserPSError[4] > ConfigSystema::getTentativasTotal()){
+                            throw new Exception("Usuário bloqueado, favor entrar em contato com o administrador.", 14005);
+                            exit;
+                }
 
+                $Tentativa = ++$UserPSError[4];
                 $ChavesAtualizacao = [
                                         [
                                             0=>5, 
                                             1=>$UserPSError[5]]
                                     ];
+                
                 $Atualizar = [
                                 [
                                     "name"=>"Tentativa",

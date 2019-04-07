@@ -94,6 +94,9 @@ async function EnviarDados(obj){
             case 14004:
                 break;
 
+            case 14005:
+                break;
+
             case 14006:
                 break;
 
