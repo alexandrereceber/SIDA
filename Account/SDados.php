@@ -20,7 +20,7 @@ class SessaoDados{
         
     }
     private function validarChave($chv){
-        if(!isset($chv)) throw new Exception("Você não está autenticado, favor entrar em contato com o administrador.");
+        if(!isset($chv)) throw new Exception("Você não está autenticado, favor entrar em contato com o administrador.",5000);
     }
     
     public function setChaves($chv) {
@@ -33,7 +33,7 @@ class SessaoDados{
         session_save_path(__DIR__ . "/Sessoes");
         
         if($CheckFolder = file_exists(__DIR__ . "/Sessoes") == false){
-            throw new Exception("A pasta de sessões não foi encontrada, favor entrar em contato com o administrador.");
+            throw new Exception("A pasta de sessões não foi encontrada, favor entrar em contato com o administrador.",5001);
         }
         
         @session_id($this->getID());

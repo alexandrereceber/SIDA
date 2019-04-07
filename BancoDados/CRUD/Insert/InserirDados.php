@@ -17,7 +17,7 @@ try{
     }
 
     if(empty($Tabela)) throw new Exception("Nenhuma tabela foi definida, favor entrar em contato com o administrador.");
-    if(!class_exists($Tabela)) throw new Exception("A classe que representa essa tabela não foi encontrada.", 3407);
+    if(!class_exists($Tabela)) throw new Exception("A classe que representa essa tabela não foi encontrada.", 2000);
     
     $InserirDados = new $Tabela();
 
@@ -29,7 +29,7 @@ try{
     $InserirDados->setUsuario("Alexandre");
     $Result = $InserirDados->InserirDadosTabela($Dados);
     
-    if($Result == false) throw new PDOException("InserirDadosTabela - Ocorreram erros ao executar a SQL", 2);
+    if($Result == false) throw new PDOException("A instrução SQL para inserir dados retornou erros.", 2001);
     
     $InserirDados->EndClock();
     $ResultRequest["Modo"]             = "I";

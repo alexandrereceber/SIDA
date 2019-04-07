@@ -31,8 +31,8 @@ error_reporting(0);
 if(@!include_once "../Config/Configuracao.php"){ //Include que contém configurações padrões do sistema.
     $ResultRequest["Modo"]        = "Include";
     $ResultRequest["Error"]       = true;
-    $ResultRequest["Codigo"]      = 3588;
-    $ResultRequest["Mensagem"]    = "O arquivo de configuração não foi encontrado. verify.php";
+    $ResultRequest["Codigo"]      = 14000;
+    $ResultRequest["Mensagem"]    = "O arquivo de configuração não foi encontrado.";
     
     echo json_encode($ResultRequest);
     exit;
@@ -44,8 +44,8 @@ if(@!include_once "../Config/Configuracao.php"){ //Include que contém configura
 if(!@include_once ConfigSystema::get_Path_Systema() . '/BancoDados/TabelasBD/'. AcessoBancoDados::get_BaseDados() .'.php'){
     $ResultRequest["Modo"]        = "Include";
     $ResultRequest["Error"]       = true;
-    $ResultRequest["Codigo"]      = 3593;
-    $ResultRequest["Mensagem"]    = "A configuração do banco de dados não foi encontrado. verify.php";
+    $ResultRequest["Codigo"]      = 14001;
+    $ResultRequest["Mensagem"]    = "A configuração do banco de dados não foi encontrado.";
     
     echo json_encode($ResultRequest); 
     exit;
@@ -68,11 +68,11 @@ $Dispositivo    = $_REQUEST["sendDispositivo"];
 try {
     if(ConfigSystema::getValidarDispositivo()){
         if(!$Dispositivo){
-            throw new Exception("O dispositivo utilidado não foi informado", 3594);
+            throw new Exception("O dispositivo utilidado não foi informado.", 14002);
             exit;
                 }
         if(!ConfigSystema::getDispositivos($Dispositivo)){
-            throw new Exception("O dispositivo utilidado não é válido para esse sistema.", 3596);
+            throw new Exception("O dispositivo utilidado não é válido para esse sistema.", 14003);
             exit;
 
         }
@@ -121,13 +121,13 @@ try {
      */
     if(ConfigSystema::getValidarHabilitacao())
         if($Saida[3] != 1){
-            throw new Exception("O usuário não existe ou não está habilitado no sistema. Favor entrar em contato com o administrador.", 3592);
+            throw new Exception("O usuário não existe ou não está habilitado no sistema. Favor entrar em contato com o administrador.", 14004);
             exit;
         }
     
     if(ConfigSystema::getValidarTentativas()){
         if($Saida[4] > ConfigSystema::getTentativasTotal()){
-            throw new Exception("Usuário bloqueado, favor entrar em contato com o administrador.", 3596);
+            throw new Exception("Usuário bloqueado, favor entrar em contato com o administrador.", 14005);
             exit;
         }
     }
@@ -136,7 +136,39 @@ try {
      * O Usuário ou a senha que foram informados estão incorretos.
      */
     if(count($Saida) == 0){
-        throw new Exception("Usuário ou senha inválidos.", 3595);
+        if(ConfigSystema::getValidarTentativas()){
+            /**
+             * Garante que as tentativas, sem sucesso, serão registradas para uso futuro.
+             */
+            $FiltroCampos = [
+                                [
+                                    [
+                                        0=>0,
+                                        1=>"=",
+                                        2=>$Usuario
+                                    ]
+                                ]
+                            ];
+
+                $SelecionarDados->setFiltros($FiltroCampos);
+                $SelecionarDados->Select();            
+                $UserPSError = $SelecionarDados->getArrayDados()[0];
+                $Tentativa = ++$UserPSError[4];
+
+                $ChavesAtualizacao = [
+                                        [
+                                            0=>5, 
+                                            1=>$UserPSError[5]]
+                                    ];
+                $Atualizar = [
+                                [
+                                    "name"=>"Tentativa",
+                                    "value"=>$Tentativa]
+                            ];
+                $SelecionarDados->AtualizarDadosTabela($ChavesAtualizacao,$Atualizar);
+            }
+            
+        throw new Exception("Usuário ou senha inválidos.", 14006);
     }
     
     $SDados["Active"]   = true;
@@ -175,7 +207,7 @@ try {
 
      default:
          session_destroy();
-        throw new Exception("Esse usuário foi autenticado, mas não possui nenhum perfil de acesso. Favor entrar em contato com o administrador.", 3591);
+        throw new Exception("Esse usuário foi autenticado, mas não possui nenhum perfil de acesso. Favor entrar em contato com o administrador.", 14007);
          break;
  }
 

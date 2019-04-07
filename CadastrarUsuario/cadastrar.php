@@ -31,8 +31,8 @@ error_reporting(0);
 if(@!include_once "../Config/Configuracao.php"){ //Include que contém configurações padrões do sistema.
     $ResultRequest["Modo"]        = "Include";
     $ResultRequest["Error"]       = true;
-    $ResultRequest["Codigo"]      = 3588;
-    $ResultRequest["Mensagem"]    = "O arquivo de configuração não foi encontrado. verify.php";
+    $ResultRequest["Codigo"]      = 8000;
+    $ResultRequest["Mensagem"]    = "O arquivo de configuração não foi encontrado.";
     
     echo json_encode($ResultRequest);
     exit;
@@ -44,8 +44,8 @@ if(@!include_once "../Config/Configuracao.php"){ //Include que contém configura
 if(!@include_once ConfigSystema::get_Path_Systema() . '/BancoDados/TabelasBD/'. AcessoBancoDados::get_BaseDados() .'.php'){
     $ResultRequest["Modo"]        = "Include";
     $ResultRequest["Error"]       = true;
-    $ResultRequest["Codigo"]      = 3593;
-    $ResultRequest["Mensagem"]    = "A configuração do banco de dados não foi encontrado. verify.php";
+    $ResultRequest["Codigo"]      = 8001;
+    $ResultRequest["Mensagem"]    = "O arquivo responsável pela base de dados e tabelas não foi encontrado.";
     
     echo json_encode($ResultRequest); 
     exit;
@@ -68,18 +68,18 @@ $Dispositivo    = $_REQUEST["sendDispositivo"];
 
 try {
     if(!($Senha === $ContraSenha)) {
-        throw new Exception("As senhas não são iguais, favor entrar em contato com o administrador!", 3598);
+        throw new Exception("As senhas não são iguais, favor entrar em contato com o administrador!", 8002);
         exit;
         
     }
     
     if(ConfigSystema::getValidarDispositivo()){
         if(!$Dispositivo){
-            throw new Exception("O dispositivo utilidado não foi informado", 3594);
+            throw new Exception("O dispositivo utilidado não foi informado.", 8003);
             exit;
                 }
         if(!ConfigSystema::getDispositivos($Dispositivo)){
-            throw new Exception("O dispositivo utilidado não é válido para esse sistema.", 3596);
+            throw new Exception("O dispositivo utilidado não é válido para esse sistema.", 8004);
             exit;
 
         }
@@ -97,7 +97,7 @@ try {
     $Result = $InserirDados->InserirDadosTabela($Dados);
     
     if($Result == false) 
-        throw new PDOException("Ocorreram erros ao cadastrar usuário. Favor entrar em contato com o administrador!", 3597);
+        throw new PDOException("Ocorreram erros ao cadastrar usuário. Favor entrar em contato com o administrador!", 8005);
     
     $InserirDados->EndClock();
     $ResultRequest["Modo"]             = "Cadastro";

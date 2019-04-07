@@ -2,8 +2,8 @@
 if(@!include_once __DIR__ . "/../../Config/Configuracao.php"){ //Include que contém configurações padrões do sistema.
     $ResultRequest["Modo"]        = "Include";
     $ResultRequest["Error"]    = true;
-    $ResultRequest["Codigo"]   = 3692;
-    $ResultRequest["Mensagem"] = "O arquivo de Configuração não foi encontrado. Cabecalho_Tabelas";
+    $ResultRequest["Codigo"]   = 12000;
+    $ResultRequest["Mensagem"] = "O arquivo de Configuração não foi encontrado.";
     
     echo json_encode($ResultRequest);
     exit;
@@ -15,8 +15,8 @@ if(@!include_once __DIR__ . "/../../Config/Configuracao.php"){ //Include que con
 if(!@include_once ConfigSystema::get_Path_Systema() . '/BancoDados/TabelasBD/'. AcessoBancoDados::get_BaseDados() .'.php'){
     $ResultRequest["Modo"]        = "Include";
     $ResultRequest["Error"]    = true;
-    $ResultRequest["Codigo"]   = 3589;
-    $ResultRequest["Mensagem"] = "A configuração do banco de dados não foi encontrado. Controller";
+    $ResultRequest["Codigo"]   = 12001;
+    $ResultRequest["Mensagem"] = "A configuração do banco de dados não foi encontrado.";
     
     echo json_encode($ResultRequest); 
     exit;
@@ -40,7 +40,7 @@ $Operacao       = OperacaoTable::getMD5ForOperacao($_REQUEST["sendModoOperacao"]
  * Ex: select, insert, delete, update
  */
 try{
-    if(empty($Operacao)) throw new Exception("Nenhuma operação foi definida, favor entrar em contato com o administrador.");
+    if(empty($Operacao)) throw new Exception("Nenhuma operação foi definida, favor entrar em contato com o administrador.", 12002);
 } catch (Exception $ex) {
         $ResultRequest["Modo"]      = "D";
         $ResultRequest["Error"]     = true;
@@ -99,23 +99,23 @@ if($Sessao && $SessaoTabela){
             $vd = $SD->Validar_UserName();
             if(!$vd){
               $SD->DestruirSessao();
-              throw new Exception("Usuário inválido para essa sessão, favor entrar em contato com o administrador!.", 3692);  
+              throw new Exception("Usuário inválido para essa sessão, favor entrar em contato com o administrador!.", 12003);  
             }
 
             $vt = $SD->ValidarTime();
             if(!$vt){
               $SD->DestruirSessao();
-              throw new Exception("Tempos não estão sincronizados, favor entrar em contato com o administrador!.", 3693);  
+              throw new Exception("Tempos não estão sincronizados, favor entrar em contato com o administrador!.", 12004);  
             }
 
             $vts = $SD->ValidarTempoSessao();
             if(!$vts){
                 $SD->DestruirSessao();
-                throw new Exception("Tempo de sessão expirado, favor efetuar login novamente!.", 3694);
+                throw new Exception("Tempo de sessão expirado, favor efetuar login novamente!.", 12005);
             }
         }else{
             $SD->DestruirSessao();
-            throw new Exception("Login necessário, favor entrar em contato com o administrador!.", 3691);
+            throw new Exception("Login necessário, favor entrar em contato com o administrador!.", 12006);
         }
 
     } catch (Exception $exc) {

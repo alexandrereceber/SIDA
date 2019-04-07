@@ -2,8 +2,8 @@
 if(@!include_once __DIR__ . "/../../Config/Configuracao.php"){ //Include que contém configurações padrões do sistema.
     $ResultRequest["Modo"]        = "Include";
     $ResultRequest["Error"]    = true;
-    $ResultRequest["Codigo"]   = 3588;
-    $ResultRequest["Mensagem"] = "O arquivo de Configuração não foi encontrado. Cabecalho_Tabelas";
+    $ResultRequest["Codigo"]   = 11000;
+    $ResultRequest["Mensagem"] = "O arquivo de Configuração não foi encontrado.";
     
     echo json_encode($ResultRequest);
     exit;
@@ -38,8 +38,8 @@ if($Sessao){
     if(!@include_once ConfigSystema::get_Path_Systema() . '/Account/SDados.php'){
         $ResultRequest["Modo"]        = "Include";
         $ResultRequest["Error"]    = true;
-        $ResultRequest["Codigo"]   = 3590;
-        $ResultRequest["Mensagem"] = "Error sessão. Controller";
+        $ResultRequest["Codigo"]   = 11001;
+        $ResultRequest["Mensagem"] = "Error sessão.";
 
         echo json_encode($ResultRequest); 
         exit;
@@ -63,23 +63,23 @@ if($Sessao){
             $vd = $SD->Validar_UserName();
             if(!$vd){
               $SD->DestruirSessao();
-              throw new Exception("Usuário inválido para essa sessão, favor entrar em contato com o administrador!.", 3692);  
+              throw new Exception("Usuário inválido para essa sessão, favor entrar em contato com o administrador!.", 11002);  
             }
 
             $vt = $SD->ValidarTime();
             if(!$vt){
               $SD->DestruirSessao();
-              throw new Exception("Tempos não estão sincronizados, favor entrar em contato com o administrador!.", 3693);  
+              throw new Exception("Tempos não estão sincronizados, favor entrar em contato com o administrador!.", 11003);  
             }
 
             $vts = $SD->ValidarTempoSessao();
             if(!$vts){
                 $SD->DestruirSessao();
-                throw new Exception("Tempo de sessão expirado, favor efetuar login novamente!.", 3694);
+                throw new Exception("Tempo de sessão expirado, favor efetuar login novamente!.", 11004);
             }
         }else{
             $SD->DestruirSessao();
-            throw new Exception("Login necessário, favor entrar em contato com o administrador!.", 3691);
+            throw new Exception("Login necessário, favor entrar em contato com o administrador!.", 11005);
         }
 
     } catch (Exception $exc) {

@@ -26,8 +26,8 @@ $FiltroCampos = $_REQUEST["sendFiltros"];
 $Ordem = $_REQUEST["sendOrdemBY"];
 try{
 
-    if(empty($Tabela)) throw new Exception("Nenhuma tabela foi definida, favor entrar em contato com o administrador.", 3405);
-    if(!class_exists($Tabela)) throw new Exception("A classe que representa essa tabela não foi encontrada.", 3406);
+    if(empty($Tabela)) throw new Exception("Nenhuma tabela foi definida, favor entrar em contato com o administrador.", 3000);
+    if(!class_exists($Tabela)) throw new Exception("A classe que representa essa tabela não foi encontrada.", 3001);
     
     $SelecionarDados = new $Tabela();
     $SelecionarDados->StartClock();

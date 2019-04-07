@@ -15,8 +15,8 @@
                 throw new Exception("Nenhum dado foi avaliado!");
             }
         
-            if(empty($Tabela)) throw new Exception("Nenhuma tabela foi definida, favor entrar em contato com o administrador.");
-            if(!class_exists($Tabela)) throw new Exception("A classe que representa essa tabela não foi encontrada.", 3408);
+            if(empty($Tabela)) throw new Exception("Nenhuma tabela foi definida, favor entrar em contato com o administrador.", 1000);
+            if(!class_exists($Tabela)) throw new Exception("A classe que representa essa tabela não foi encontrada.", 1001);
                 
             $ExcluirDados = new $Tabela();
             $ExcluirDados->StartClock();

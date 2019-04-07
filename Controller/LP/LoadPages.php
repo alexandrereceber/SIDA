@@ -101,8 +101,8 @@
 if(@!include_once __DIR__ . "/../../Config/Configuracao.php"){ //Include que contém configurações padrões do sistema.
     $ResultRequest["Modo"]        = "Include";
     $ResultRequest["Error"]    = true;
-    $ResultRequest["Codigo"]   = 3588;
-    $ResultRequest["Mensagem"] = "O arquivo de Configuração não foi encontrado. LoadPages";
+    $ResultRequest["Codigo"]   = 10000;
+    $ResultRequest["Mensagem"] = "O arquivo de Configuração não foi encontrado. ";
     
     echo json_encode($ResultRequest);
     exit;
@@ -113,8 +113,8 @@ if(@!include_once __DIR__ . "/../../Config/Configuracao.php"){ //Include que con
 if(!@include_once ConfigSystema::get_Path_Systema() . '/BancoDados/TabelasBD/'. AcessoBancoDados::get_BaseDados() .'.php'){
     $ResultRequest["Modo"]        = "Include";
     $ResultRequest["Error"]    = true;
-    $ResultRequest["Codigo"]   = 3589;
-    $ResultRequest["Mensagem"] = "A configuração do banco de dados não foi encontrado. Controller";
+    $ResultRequest["Codigo"]   = 10001;
+    $ResultRequest["Mensagem"] = "A configuração do banco de dados não foi encontrado. ";
     
     echo json_encode($ResultRequest); 
     exit;

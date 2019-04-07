@@ -81,33 +81,33 @@ async function EnviarDados(obj){
     Result = await Dados.Atualizar();   
     if(Result.Error != false){
         switch (Result.Codigo) {
-            case 1049:
+            case 14001:
                 Result.Mensagem = "Banco de dados não encontrado. Favor entrar em contato com o administrador."
                 break;
 
-            case 23000:
+            case 8005:
                 Result.Mensagem = "Usuário já cadastrado, favor escolha outro nome de usuário!"
                 obj[0].focus();
                 obj[0].value = "";
                 break;
 
-            case 3589:
+            case 14004:
                 break;
 
-            case 3590:
+            case 14006:
                 break;
 
-            case 3595:
+            case 14004:
                 break;
 
-            case 3596:
+            case 14003:
                 Result.Mensagem = "O dispositivo utilidado não é válido para esse sistema."
                 break;
 
-            case 3591:
+            case 15005:
                 break;
 
-            case 3592:
+            case 14007:
                 break;
 
             default:

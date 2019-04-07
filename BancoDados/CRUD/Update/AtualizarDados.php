@@ -16,8 +16,8 @@ try{
         throw new Exception("Falta Campos");
     }
 
-    if(empty($Tabela)) throw new Exception("Nenhuma tabela foi definida, favor entrar em contato com o administrador.");
-    if(!class_exists($Tabela)) throw new Exception("A classe que representa essa tabela não foi encontrada.", 3409);
+    if(empty($Tabela)) throw new Exception("Nenhuma tabela foi definida, favor entrar em contato com o administrador.", 4000);
+    if(!class_exists($Tabela)) throw new Exception("A classe que representa essa tabela não foi encontrada.", 4001);
     
     $AtualizarDados = new $Tabela();
     $AtualizarDados->StartClock();

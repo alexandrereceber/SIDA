@@ -2,7 +2,7 @@
 if(@!include_once dirname(__DIR__) ."/../Config/Configuracao.php"){  //Include que contém configurações padrões do sistema.
     $ResultRequest["Erros"]["Modo"]        = "Include";
     $ResultRequest["Erros"][0]             = true;
-    $ResultRequest["Erros"][1]             = 3586;
+    $ResultRequest["Erros"][1]             = 6000;
     $ResultRequest["Erros"][2]             = "O arquivo de configuração não foi encontrado. Modelo de tabelas";
     
     echo json_encode($ResultRequest);
@@ -12,7 +12,7 @@ if(@!include_once dirname(__DIR__) ."/../Config/Configuracao.php"){  //Include q
 if(@!include_once ConfigSystema::get_Path_Systema() . '/BancoDados/Engines/BDSQL_PDO.php'){ //Include que contém o acesso ao banco de dados.
     $ResultRequest["Erros"]["Modo"]        = "Include";
     $ResultRequest["Erros"][0]             = true;
-    $ResultRequest["Erros"][1]             = 3585;
+    $ResultRequest["Erros"][1]             = 6001;
     $ResultRequest["Erros"][2]             = "O arquivo Engines de configuração do banco de dados não foi localizado. Modelo de tabelas.";
     
     echo json_encode($ResultRequest);
@@ -430,7 +430,7 @@ abstract class ModeloTabelas extends BDSQL{
         $this->stringSQLExecutar($StringSQL);
         $rst = $this->ExecutarSQL();
         if($rst == false){
-            throw new PDOException("Tabela de privilégios não foi encontrada", 35200);
+            throw new PDOException("Tabela de privilégios não foi encontrada.", 6002);
         }
         $Linhas = $this->getArrayResultado();
         
@@ -463,7 +463,7 @@ abstract class ModeloTabelas extends BDSQL{
                         return true;
                     }else{
                         if($Tipo == "Select"){
-                            throw new Exception("Usuário definido não possui privilégios nessa tabela($this->NomeTabela) para essa operação: $Tipo", 35201);
+                            throw new Exception("Usuário definido não possui privilégios nessa tabela($this->NomeTabela) para essa operação: $Tipo", 6003);
                         }else{
                             return false;
                         }                        
@@ -475,7 +475,7 @@ abstract class ModeloTabelas extends BDSQL{
                         return true;
                     }else{
                         if($Tipo == "Select"){
-                            throw new Exception("Usuário definido não possui privilégios nessa tabela($this->NomeTabela) para essa operação: $Tipo", 35201);
+                            throw new Exception("Usuário definido não possui privilégios nessa tabela($this->NomeTabela) para essa operação: $Tipo", 6004);
                         }else{
                             return false;
                         }
@@ -483,10 +483,10 @@ abstract class ModeloTabelas extends BDSQL{
                 }
             }
             //Para evitar perguntas ao sistema a mensagem foi definida como padrão.
-            throw new Exception("Usuário definido não possui privilégios nessa tabela($this->NomeTabela) para essa operação: $Tipo", 35201);
+            throw new Exception("Usuário definido não possui privilégios nessa tabela($this->NomeTabela) para essa operação: $Tipo", 6005);
 
         }else{
-            throw new Exception("Nenhum usuário foi definido para que possa ser verificado o acesso.", 35202);
+            throw new Exception("Nenhum usuário foi definido para que possa ser verificado o acesso.", 6006);
         }
     }
     public function setOrderBy($Order) {
@@ -842,7 +842,7 @@ abstract class ModeloTabelas extends BDSQL{
     /**
      * Método para inserir dados no banco de dados usando PDO. O array, através da página WEB, chega nesse formato pelo
      * uso da instrução de serialização do jquery um formulário
-     * @param Array $Dados
+     * @param Array $Dados [["name","NomeCampo"],["value","valor"]]
      * @return boolean
      * @throws PDOException
      */

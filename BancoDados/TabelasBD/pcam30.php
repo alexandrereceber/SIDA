@@ -11,8 +11,8 @@ include_once dirname(__DIR__) ."/../Config/Configuracao.php";
 if(@!include_once ConfigSystema::get_Path_Systema() . '/BancoDados/TabelasBD/ModeloTabelas.php'){ 
     $ResultRequest["Erros"]["Modo"]        = "Include";
     $ResultRequest["Erros"][0]             = true;
-    $ResultRequest["Erros"][1]             = 3588;
-    $ResultRequest["Erros"][2]             = "O arquivo de configuração não foi encontrado. Controller";
+    $ResultRequest["Erros"][1]             = 7000;
+    $ResultRequest["Erros"][2]             = "O arquivo de configuração não foi encontrado.";
     
     echo json_encode($ResultRequest);
     exit;
@@ -359,7 +359,57 @@ class login extends ModeloTabelas{
                                         "Placeholder"=> "", 
                                         "TypeComponente"=>"", 
                                         "TypeConteudo"=> ["text"], 
-                                        "Name" => "", 
+                                        "Name" => "Tentativa", 
+                                        "Patterns"=> "", 
+                                        "Titles" => "",
+                                        "Required" => "",
+                                        "width" => "",
+                                        "height"=>"",
+                                        "step"=>"",
+                                        "size"=>"",
+                                        "min"=>"",
+                                        "max"=>"",
+                                        "maxlength"=>"",
+                                        "form"=>"",
+                                        "formaction"=>"",
+                                        "formenctype"=>"",
+                                        "formmethod"=>"",
+                                        "formnovalidate"=>"",
+                                        "formtarget"=>"",
+                                        "align"=>"",
+                                        "alt"=>"",
+                                        "autocomplete"=>"",
+                                        "autofocus"=>"",
+                                        "checked"=>"",
+                                        "dirname"=>"",
+                                        "readonly"=>""
+                                    ],                                  //Informa se o campo fará parte do formulários
+               "OrdemBY"        => true
+           ] ,
+            [
+               "Index"          => 5,                                   //Ordem dos campos
+               "Field"          => "idLogin",                       //Nome original do campo (String)
+               "CodNome"        => "ID",                       //Codnome do campo, o que será visualizado pelo usuário (String)
+               "TypeConteudo"   => ["texto"],                           //Tipo de conteudo exibido na tabela HTML
+               "Filter"         => false,                               //Exibe ícone para realizar filtro por campo
+               "Key"            => [false, false],                       //Chave primária (boolean)
+               "ChvExt"         => [        
+                                        "TExt" => false,
+                                        "Tabela"=> "",
+                                        "IdxCampoVinculado"=> 0, 
+                                        "Funcao"=> 0, 
+                                        "NomeBotao"=> ""
+                                    ],   //Chave estrangeira
+               "Mask"           => false,                               // Máscara (String) Contém a máscara que será utilizada pelo campo
+               "Editar"         => false,                               //Editável - (boolean)  
+               "Visible"        => true,                                //Mostrar na tabela HTML (boolean)
+               "Regex"          => [Exist=> false, Regx=> ""],                               //Regex que será utilizada.
+               "Formulario"     => [
+                                        "Exibir"=> false,
+                                        "Placeholder"=> "", 
+                                        "TypeComponente"=>"", 
+                                        "TypeConteudo"=> ["text"], 
+                                        "Name" => "password", 
                                         "Patterns"=> "", 
                                         "Titles" => "",
                                         "Required" => "",
