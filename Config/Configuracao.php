@@ -24,7 +24,7 @@ class ConfigSystema {
             $vrf_Habilitado = false, //Habilita a verificação de usuário esta habilitado no sistema.
             $vrf_Tentativas = true, //Habilita a verificação do número de tentativas de acesso antes que a senha seja bloqueada.
             $Tentativas = 5, //Informa o total de tentativas que serão aceitas antes de bloquear o usuário.
-            $vrf_Dispositivo = true, // Verificar qual dispositivo o sistema esta logando
+            $vrf_Dispositivo = false, // Verificar qual dispositivo o sistema esta logando
             $Dispositivos = [ //Tipos de dispositivos que são liberado no sistema, essa lista somente será utilizada, caso, 
                               //a variável $vrf_Dispositivo estive habilitada.
                                 "pc",

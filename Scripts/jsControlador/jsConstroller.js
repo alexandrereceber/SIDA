@@ -31,7 +31,7 @@ var Padrao = function(){
             return Operacao.readyState;
         },
         getHostServer: function(){
-            return "192.168.15.2"
+            return "10.56.32.78:8080"
         }
     }
 }()

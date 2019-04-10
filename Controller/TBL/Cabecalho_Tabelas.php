@@ -31,6 +31,7 @@ $Metodo         = $_REQUEST["Metodo"];
 $SSL            = $_REQUEST["SSL"];
 $TabelaMD5      = $_REQUEST["sendTabelas"];
 $Formato        = $_REQUEST["sendRetorno"]  == "" ? "JSON" : $_REQUEST["sendRetorno"]; //Atribui um formato padrão
+$Dispositivo    = $_REQUEST["sendDispositivo"];
 
 $Tabela         = TabelaBancoDadosMD5::getMD5ForTabela($TabelaMD5);    //Nome da tabela no banco de dados
 $Operacao       = OperacaoTable::getMD5ForOperacao($_REQUEST["sendModoOperacao"]);      //CRUD
@@ -40,13 +41,27 @@ $Operacao       = OperacaoTable::getMD5ForOperacao($_REQUEST["sendModoOperacao"]
  * Ex: select, insert, delete, update
  */
 try{
+
+    if(ConfigSystema::getValidarDispositivo()){
+        if(!$Dispositivo){
+            throw new Exception("O dispositivo utilidado não foi informado.", 14002);
+            exit;
+                }
+        if(!ConfigSystema::getDispositivos($Dispositivo)){
+            throw new Exception("O dispositivo utilidado não é válido para esse sistema.", 14003);
+            exit;
+        }
+    }
+    
     if(empty($Operacao)) throw new Exception("Nenhuma operação foi definida, favor entrar em contato com o administrador.", 12002);
+
+    
 } catch (Exception $ex) {
         $ResultRequest["Modo"]      = "D";
         $ResultRequest["Error"]     = true;
         $ResultRequest["Codigo"]    = $ex->getCode();
         $ResultRequest["Mensagem"]  = $ex->getMessage();
-        $ResultRequest["Trace"]     = $ex->getTraceAsString();
+        $ResultRequest["Tracer"]    = $ex->getTraceAsString();
         $ResultRequest["File"]      = $ex->getFile();
 
         echo json_encode($ResultRequest);
@@ -124,10 +139,12 @@ if($Sessao && $SessaoTabela){
          */
         if(!AmbienteCall::getCall()){
 
-            $ResultRequest["Modo"]        = "VL"; //Validação
-            $ResultRequest["Error"]    = true;
-            $ResultRequest["Codigo"]   = $exc->getCode();
-            $ResultRequest["Mensagem"] = $exc->getMessage();
+            $ResultRequest["Modo"]      = "VL"; //Validação
+            $ResultRequest["Error"]     = true;
+            $ResultRequest["Codigo"]    = $exc->getCode();
+            $ResultRequest["Mensagem"]  = $exc->getMessage();
+            $ResultRequest["File"]      = "Cabecalho_Tabelas.php";
+            $ResultRequest["Tracer"]    = "Linha 132";
             /**
              * Esse array armazena o endereço da página de login caso o usuário esteja tentando acesso sem esta logado via componente.
              */

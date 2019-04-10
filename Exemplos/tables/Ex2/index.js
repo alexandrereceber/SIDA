@@ -68,6 +68,6 @@ var tbl = new TabelaHTML("http://"+ Padrao.getHostServer() +"/SistemaOnline/Cont
 tbl.setTabela = "64b99121f7e18c0f8586f30bf78062e0";
 tbl.setRecipiente = "dados";
 tbl.Name = "tbl";
-tbl.Filtros = [[1,"like","%02%"]]
+//tbl.Filtros = [[1,"like","%02%"],[2,"like","%8%",1]]
 tbl.show();
             

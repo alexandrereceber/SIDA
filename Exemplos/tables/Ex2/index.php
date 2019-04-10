@@ -27,7 +27,7 @@ and open the template in the editor.
         <script  src="../../../Scripts/bootbox/bootbox.js?5aa" defer="defer"></script>
         <script  src="../../../Scripts/jsControlador/jsConstroller.js?<?php echo time()?>" defer="defer"></script>     
         <script  src="../../../Componentes/Tabelas.js?q=d7sas" defer="defer"></script>  
-        <script  src="index.js?q=535dsd" defer="defer"></script>  
+        <script  src="index.js?<?php echo time()?>>" defer="defer"></script>  
         
     </head>
     <body>

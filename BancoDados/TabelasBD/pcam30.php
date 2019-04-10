@@ -862,11 +862,11 @@ class Exemplo2 extends ModeloTabelas{
                "Visible"        => true,
                "Regex"          => [Exist=> false, Regx=> ""],
                "Formulario"     => [
-                                        "Exibir"=> false,
+                                        "Exibir"=> true,
                                         "Placeholder"=> "", 
-                                        "TypeComponente"=>"",
+                                        "TypeComponente"=>"inputbox",
                                         "TypeConteudo"=> ["text"],
-                                        "Name" => "", 
+                                        "Name" => "MaquinaR", 
                                         "Patterns"=> "",
                                         "Titles" => "",
                                         "Required" => "",
@@ -1062,7 +1062,7 @@ class Exemplo2 extends ModeloTabelas{
     public function getValorPadrao($idx) {
         switch ($idx) {
             case 2:
-                $ValorPadraoCampos[2] = [Exist=>true, Valor=>"sim", Readonly=> true];
+                $ValorPadraoCampos[2] = [Exist=>false, Valor=>"sim", Readonly=> true];
                 break;
 
             default:
@@ -1090,8 +1090,8 @@ class Exemplo2 extends ModeloTabelas{
      * @param type $idx
      */
     public function getFiltrosCampo() {
-        $Campo[0] = [[1,"like","rf06104%"]];
-        $Campo[1] = [[2,"like","259%"]];
+        //$Campo[0] = [[1,"like","rf06104%"]];
+        //$Campo[1] = [[2,"like","259%"]];
         
         
         return $Campo;
