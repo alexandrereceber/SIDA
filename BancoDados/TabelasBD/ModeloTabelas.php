@@ -542,8 +542,7 @@ abstract class ModeloTabelas extends BDSQL{
         $this->stringSQLExecutar($StringSQL);
         $rst = $this->ExecutarSQL();
         if($rst == false){
-            $Error = $this->getErros();
-            throw new PDOException($Error[3], $Error[1]);
+            $this->GerarError();
         }
         
         return true;
@@ -876,8 +875,7 @@ abstract class ModeloTabelas extends BDSQL{
          */
         $rst = $this->ExecutarSQL($SqlCampos[2]);
         if($rst == false){
-            $Error = $this->getErros();
-            throw new PDOException($Error[3], $Error[1]);
+            $this->GerarError();
         }        
         return true;
     }
@@ -970,7 +968,7 @@ abstract class ModeloTabelas extends BDSQL{
     public function AtualizarDadosTabela($ChavesPrimarias, $Dados) {
         $this->obterPrivilegios();
         $this->getVerificarPrivilegios("Update");
-        
+
         //Valida o conteudo dos dados de acordo com o regex do campo.
         $this->validarConteudoCampoRegex($Dados);
 
@@ -978,7 +976,7 @@ abstract class ModeloTabelas extends BDSQL{
          * Executa funções anônimas.
          */
         $Saida = $this->Jobs(__FUNCTION__, $Dados);
-        
+
         $SqlCampos = $this->gerarStringCamposSQLEditar($Dados);
         $Where = $this->gerarStringWhereCHPrimaria($ChavesPrimarias);
         $SqlArray = array_merge($SqlCampos[1], $Where[1]);
@@ -990,10 +988,11 @@ abstract class ModeloTabelas extends BDSQL{
         $StringSQL = "UPDATE $this->NomeTabela set $SqlCampos[0] where $Where[0]";
         $this->stringSQLExecutar($StringSQL);
         $rst = $this->ExecutarSQL($SqlArray);
+
         if($rst == false){
-            $Error = $this->getErros();
-            throw new PDOException($Error[3], $Error[1]);
+            $this->GerarError();
         }
+        
         return true;
     }
 
@@ -1053,13 +1052,30 @@ abstract class ModeloTabelas extends BDSQL{
             $rst = $this->ExecutarSQL($Where[1]);            
             if($rst == false){
                 $this->rollBack(); //Desfaz toda a transação
-                $Error = $this->getErros();
-                throw new PDOException($Error[3], $Error[1]);
+                $this->GerarError();
+
             }
         }
         $this->commit();
         
         return true;
     }
+    /**
+     * Gera todos os erros conhecidos e os que não foram catalogados é gerado uma mensagem padrão
+     * para verificá-los.
+     * @throws Exception
+     */
+    private function GerarError(){
+        $Numero = $this->getErros()[1];
+        switch ($Numero) {
+            case "HY093":
+                throw new Exception("Inválido o número de parâmetros.");
 
+                break;
+
+            default:
+                throw new Exception("Ocorreram erros que não foram tratador, favor verificar o arquivo ModelosTabela.php para tratá-los");
+                break;
+        }
+    }
 }

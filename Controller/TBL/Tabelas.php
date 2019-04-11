@@ -22,7 +22,6 @@ if(@!include_once "./Cabecalho_Tabelas.php"){ //Include que contém configuraç�
     exit;
 }; 
 
-
 switch ($Operacao) {
     case "Select":
 
@@ -50,6 +49,7 @@ switch ($Operacao) {
         break;
 
     case "Update":
+
         if(!@include_once ConfigSystema::get_Path_Systema() . '/BancoDados/CRUD/Update/AtualizarDados.php'){
             $ResultRequest["Modo"]        = "Include";
             $ResultRequest["Error"]       = true;
@@ -59,6 +59,7 @@ switch ($Operacao) {
             echo json_encode($ResultRequest); 
             exit;
         }
+
         break;
 
     case "Delete":

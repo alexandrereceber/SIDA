@@ -33,6 +33,7 @@
  *  6004 - Usuário definido não possui privilégios nessa tabela($this->NomeTabela) para essa operação: $Tipo - getVerificarPrivilegios()
  *  6005 - Usuário definido não possui privilégios nessa tabela($this->NomeTabela) para essa operação: $Tipo - getVerificarPrivilegios()
  *  6006 - Nenhum usuário foi definido para que possa ser verificado o acesso.
+ *  6007 - Inválido o número de parâmetros.
 
  * 7 - TabelaBancodeDados.php
  *  7000 - O arquivo de configuração não foi encontrado
