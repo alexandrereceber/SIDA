@@ -516,7 +516,7 @@ abstract class ModeloTabelas extends BDSQL{
         /**
          * Executa funções anônimas.
          */
-        $Saida = $this->Jobs(__FUNCTION__);
+        //$Saida = $this->Jobs(__FUNCTION__);
         
         $Filtro = $this->setPreparaFiltro();
         /**

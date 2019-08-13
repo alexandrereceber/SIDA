@@ -7,7 +7,7 @@ var t = new TabelaHTML("http://"+ Padrao.getHostServer() +"/SistemaOnline/Contro
  * Nome da tabela que esta no formato MD5 no arquivo de configuração Config/Configuracao.php
  * @type String
  */
-t.setTabela = "52c1592330d80979c6df1f8bd9d27be3";
+t.setTabela = "d7227c5ee4543a7972360a111fa2305f";
 t.setRecipiente = "dados";
 t.Name = "t";
 t.show();

@@ -181,7 +181,7 @@ class ConfigSystema {
 class AcessoBancoDados {
     private static $EngineSQL = "mysql"; //Banco de dados MYSQL|PostgreSQL|ORACLE
     private static $Host = "localhost";
-    private static $NomeBancoDados = "pcam30";
+    private static $NomeBancoDados = "bestPrice";
     private static $Usuario = "root";
     private static $Senha = "";
     private static $UTF = "utf8";
@@ -232,8 +232,8 @@ class TabelaBancoDadosMD5{
                                 ["64b99121f7e18c0f8586f30bf7806213",["Exemplo5", false]],
                                 
                                 ["9e9524af7942ab2ca5efc37ea3738659",["paginaweb", false]],
-                                ["8c6a97b2251d1d31c56e919458172e7f",["paginawebeditar", true]]
-        
+                                ["8c6a97b2251d1d31c56e919458172e7f",["paginawebeditar", true]],
+                                ["d7227c5ee4543a7972360a111fa2305f",["produtos", false]],
 
                             ];
     
