@@ -84,6 +84,10 @@ async function EnviarDados(obj){
             case 14001:
                 Result.Mensagem = "Banco de dados não encontrado. Favor entrar em contato com o administrador."
                 break;
+                
+            case 6005:
+                Result.Mensagem = "Usuário definido não possui privilégios nessa tabela para essa operação: Insert"
+                break;
 
             case 8005:
                 Result.Mensagem = "Usuário já cadastrado, favor escolha outro nome de usuário!"

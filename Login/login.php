@@ -36,7 +36,7 @@ and open the template in the editor.
     </head>
     <body>
        
-        <div class="Caixa_Fundo">
+    <center><div class="Caixa_Fundo">
             <div class="Caixa_Flutuante">
                 <form action="#" onsubmit="EnviarDados(this)">
                     <div class="Caixa_User_Pass">
@@ -79,7 +79,7 @@ and open the template in the editor.
                     </div>
                 </form>                 
             </div>
-        </div>
+        </div></center>
 
 
         <dialog class="mdl-dialog">
