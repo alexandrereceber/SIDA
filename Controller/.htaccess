@@ -5,9 +5,6 @@ Options -Indexes
 RewriteCond %{QUERY_STRING} URL=ControladorTabelas/
 RewriteRule (.*) TBL/Tabelas.php?p=%{QUERY_STRING} [L]
 
-RewriteCond %{QUERY_STRING} URL=ControladorPages/
-RewriteRule (.*) LP/LoadPages.php?p=%{QUERY_STRING} [L]
-
 RewriteCond %{REQUEST_URI} .*
 RewriteRule (.*) - [F]
 </IfModule>
