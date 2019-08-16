@@ -1,31 +1,5 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title></title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-               
-        
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-
-        
-        <script  src="../Scripts/bootbox/bootbox.js?5a" ></script>
-       
-        
-    </head>    
-    
-    <body>
         <?php  
-
+        error_reporting(0);
 
         if(@!include_once __DIR__ . "/../Config/Configuracao.php"){ //Include que contém configurações padrões do sistema.
             $ResultRequest["Modo"]        = "Include";
@@ -33,8 +7,7 @@ and open the template in the editor.
             $ResultRequest["Codigo"]   = 10000;
             $ResultRequest["Mensagem"] = "O arquivo de Configuração não foi encontrado. ";
 
-            echo "<script defer='defer'>bootbox.alert('". $ResultRequest["Codigo"]. ": " . $ResultRequest["Mensagem"] ."')</script>";
-
+            echo "<script defer='defer'>alert('". $ResultRequest["Codigo"]. ": " . $ResultRequest["Mensagem"] ."')</script></body>";
             exit;
         }; 
         /**
@@ -46,7 +19,7 @@ and open the template in the editor.
             $ResultRequest["Codigo"]   = 10001;
             $ResultRequest["Mensagem"] = "A configuração do banco de dados não foi encontrado. ";
 
-            echo "<script defer='defer'>bootbox.alert('". $ResultRequest["Codigo"]. ": " . $ResultRequest["Mensagem"] ."')</script>";
+            echo "<script defer='defer'>alert('". $ResultRequest["Codigo"]. ": " . $ResultRequest["Mensagem"] ."')</script>";
             exit;
         }
 
@@ -84,7 +57,8 @@ and open the template in the editor.
                  * @param type $Cmp
                  * @param type $Sd
                  */
-                function __construct($Cmp/*$Campo*/, $Sd/*$Saida*/) {
+                function __construct($Cmp, $Sd) {
+                    
                     $FiltroPW[0] = false;
                     $FiltroPW[1][0][0] = $Cmp;
                     $FiltroPW[1][0][1] = "=";
@@ -112,7 +86,7 @@ and open the template in the editor.
                 /**
                  * Carrega os a configuração das partes que serão visualizadas no browser.
                  */
-                private function getDIVsPWEB() {
+                public function getDIVsPWEB() {
                     $FiltroPWEBDIV[0] = false;
                     $FiltroPWEBDIV[1][0][0] = 1;
                     $FiltroPWEBDIV[1][0][1] = "=";
@@ -133,7 +107,7 @@ and open the template in the editor.
                     $this->CarregarTabela = null;
                 }
                 
-                private function getCabecalhosPadrao() {
+                public function getCabecalhosPadrao() {
                     $FiltroPWEBCP[0] = false;
                     $FiltroPWEBCP[1][0][0] = 1;
                     $FiltroPWEBCP[1][0][1] = "=";
@@ -176,13 +150,12 @@ and open the template in the editor.
                     $this->CarregarTabela = null;
                 }
                 
-                public function getPaginaExiste(){
+                public function getPaginaExist(){
                     return $this->PageEncontrada;
                 }
 
 
                 }
-            
         $Pagina = new LoadPages($Campo, $Saida);
 
         } catch (Exception $ex) {
@@ -198,8 +171,37 @@ and open the template in the editor.
         }
 
 ?>
+
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+               
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+        
+        <script  src="../Scripts/bootbox/bootbox.js?5a" ></script>
+       
+        
+    </head>    
+    
+    <body>
+
         <?php
-           if($Pagina->getPaginaExiste()){
+           if($Pagina->getPaginaExist()){
+               
         ?>
             <div  class="Barra-Menu-Superior" id='Barra-Menu-Superior'></div>
 
@@ -211,8 +213,12 @@ and open the template in the editor.
             </div>
             <div class="Barra-Status" id='Barra-Status' onmouseup=""></div>
         <?php
-           }
+           }else{
+               /*Quando a página não for encontrada*/
         ?> 
-            
+            <center><image src="../Imagens/LoadPages/alert.png" style="width: 18%;top: 64px;position: relative;"/> <image src="../Imagens/LoadPages/error-404.png" style="width: 30%;top: 64px;position: relative;" /></center>
+        <?php 
+            }
+           ?>            
     </body>
 </html>
