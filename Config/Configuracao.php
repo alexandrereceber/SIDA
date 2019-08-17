@@ -181,7 +181,7 @@ class ConfigSystema {
 class AcessoBancoDados {
     private static $EngineSQL = "mysql"; //Banco de dados MYSQL|PostgreSQL|ORACLE
     private static $Host = "localhost";
-    private static $NomeBancoDados = "bestPrice";
+    private static $NomeBancoDados = "pcam30";
     private static $Usuario = "root";
     private static $Senha = "";
     private static $UTF = "utf8";
