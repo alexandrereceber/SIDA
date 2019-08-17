@@ -49,9 +49,10 @@
  * 9 - Cofiguracao.php
  *  9000
  * 
- * 10 - LoadPages.php
+ * 10 - LoadPages/index.php/CLPaginasWEB.php
  *  10000 - O arquivo de Configuração não foi encontrado.
  *  10001 - A configuração do banco de dados não foi encontrado.
+ *  10002 - O arquivo de configuração do código HTML não foi localizado.
  * 
  * 11 - SecurityPgs.php
  *  11000 - O arquivo de Configuração não foi encontrado.

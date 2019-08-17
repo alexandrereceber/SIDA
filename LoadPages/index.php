@@ -1,224 +1,92 @@
-        <?php  
-        error_reporting(0);
+<?php  
+error_reporting(0);
 
-        if(@!include_once __DIR__ . "/../Config/Configuracao.php"){ //Include que contém configurações padrões do sistema.
-            $ResultRequest["Modo"]        = "Include";
-            $ResultRequest["Error"]    = true;
-            $ResultRequest["Codigo"]   = 10000;
-            $ResultRequest["Mensagem"] = "O arquivo de Configuração não foi encontrado. ";
+if(@!include_once __DIR__ . "/../Config/Configuracao.php"){ //Include que contém configurações padrões do sistema.
+    $ResultRequest["Modo"]        = "Include";
+    $ResultRequest["Error"]    = true;
+    $ResultRequest["Codigo"]   = 10000;
+    $ResultRequest["Mensagem"] = "O arquivo de Configuração não foi encontrado. ";
 
-            echo "<script defer='defer'>alert('". $ResultRequest["Codigo"]. ": " . $ResultRequest["Mensagem"] ."')</script></body>";
-            exit;
-        }; 
-        /**
-         * Inclui o arquivo que contém as classes com o nome das tabelas do banco de dados AcessoBancoDados::get_BaseDados()
-         */
-        if(!@include_once ConfigSystema::get_Path_Systema() . '/BancoDados/TabelasBD/'. AcessoBancoDados::get_BaseDados() .'.php'){
-            $ResultRequest["Modo"]        = "Include";
-            $ResultRequest["Error"]    = true;
-            $ResultRequest["Codigo"]   = 10001;
-            $ResultRequest["Mensagem"] = "A configuração do banco de dados não foi encontrado. ";
+    echo "<script defer='defer'>alert('". $ResultRequest["Codigo"]. ": " . $ResultRequest["Mensagem"] ."')</script></body>";
+    exit;
+}; 
+/**
+ * Inclui o arquivo que contém as classes com o nome das tabelas do banco de dados AcessoBancoDados::get_BaseDados()
+ */
+if(!@include_once ConfigSystema::get_Path_Systema() . '/BancoDados/TabelasBD/'. AcessoBancoDados::get_BaseDados() .'.php'){
+    $ResultRequest["Modo"]        = "Include";
+    $ResultRequest["Error"]    = true;
+    $ResultRequest["Codigo"]   = 10001;
+    $ResultRequest["Mensagem"] = "A configuração do banco de dados não foi encontrado. ";
 
-            echo "<script defer='defer'>alert('". $ResultRequest["Codigo"]. ": " . $ResultRequest["Mensagem"] ."')</script>";
-            exit;
-        }
+    echo "<script defer='defer'>alert('". $ResultRequest["Codigo"]. ": " . $ResultRequest["Mensagem"] ."')</script>";
+    exit;
+}
 
-        try{
+try{
 
-            ConfigSystema::getStartTimeTotal();
-            $URL            = $_REQUEST["URL"];
-            $Requisicao     = $_REQUEST["pgweb"];
+    ConfigSystema::getStartTimeTotal();
+    $URL            = $_REQUEST["URL"];
+    $Requisicao     = $_REQUEST["pgweb"];
 
-            $Saida = explode('/', $Requisicao);
-            $Total = count($Saida) - 1;
-            /**
-             * Verifica se a busca é por texto ou númerica.
-             * Campo = 0 - ID da página
-             * Campo = 1 - É o título da página.
-             */
-            $Campo = is_numeric($Saida[$Total]) ==true  ? 0 : 1;
-            $Saida = $Saida[$Total];
+    $Saida = explode('/', $Requisicao);
+    $Total = count($Saida) - 1;
+    /**
+     * Verifica se a busca é por texto ou númerica.
+     * Campo = 0 - ID da página
+     * Campo = 1 - É o título da página.
+     */
+    $Campo = is_numeric($Saida[$Total]) == true  ? 0 : 1;
+    $Saida = $Saida[$Total];
+    
+    if(!@include_once './CLPaginasWEB.php'){
+        $ResultRequest["Modo"]     = "LoadPaginasWEB";
+        $ResultRequest["Error"]    = true;
+        $ResultRequest["Codigo"]   = 10002;
+        $ResultRequest["Mensagem"] = "O arquivo de configuração do código HTML não foi localizado.";
 
-            class LoadPages{
-                
-                private $CarregarTabela = null;
-                private $Cabecalhos = null;
-                private $CamposPWEB = null;
-                private $PageEncontrada = false;
-                private $DIVsPWEB = null;
-                private $Privilegios = null;
-                private $idPWEB = null;
-                private $TempoTabelaPaginaWEB = 0, 
-                        $TempoTabelaDIVs = 0, 
-                        $TempoTabelaCabecalhos = 0, 
-                        $TempoTabelaPriv = 0;
-                /**
-                 * Busca a página de internet requisitada na URL
-                 * @param type $Cmp
-                 * @param type $Sd
-                 */
-                function __construct($Cmp, $Sd) {
-                    
-                    $FiltroPW[0] = false;
-                    $FiltroPW[1][0][0] = $Cmp;
-                    $FiltroPW[1][0][1] = "=";
-                    $FiltroPW[1][0][2] = $Sd;
-                    $FiltroPW[1][0][3] = 2;
-                    
-                    $TmpInicial = round(microtime(true) * 1000);
-                    
-                    $this->CarregarTabela = new paginaweb();
-                    $this->CarregarTabela->setUsuario("Alexandre");
-                    $this->CarregarTabela->setFiltros($FiltroPW);
-                    $this->CarregarTabela->Select();
-                    $this->PageEncontrada = $this->CarregarTabela->getInfoPaginacao()["TotalLinhas"] == 0 ? false: true;
-                    
-                    
-                    $this->CamposPWEB = $this->CarregarTabela->getArrayDados();
-                    $this->idPWEB = $this->CamposPWEB[0][0];
-                    
-                    $TmpFinal = round(microtime(true) * 1000);
-                    $this->TempoTabelaPaginaWEB = ($TmpFinal - $TmpInicial) / 1000 . " Segundos <->". ($TmpFinal - $TmpInicial). " MicroSegundos"; 
-                    
-                    $this->CarregarTabela = null;
-                }
-                
-                /**
-                 * Carrega os a configuração das partes que serão visualizadas no browser.
-                 */
-                public function getDIVsPWEB() {
-                    $FiltroPWEBDIV[0] = false;
-                    $FiltroPWEBDIV[1][0][0] = 1;
-                    $FiltroPWEBDIV[1][0][1] = "=";
-                    $FiltroPWEBDIV[1][0][2] = $this->idPWEB;
-                    $FiltroPWEBDIV[1][0][3] = 2;
+        echo "<script defer='defer'>alert('". $ResultRequest["Codigo"]. ": " . $ResultRequest["Mensagem"] ."')</script>";
+        exit;
+    }
+    
+$Pagina = new LoadPages($Campo, $Saida);
 
-                    $TmpInicial = round(microtime(true) * 1000);
+} catch (Exception $ex) {
+    $ResultRequest["Modo"]      = "LoadPage";
+    $ResultRequest["Error"]     = true;
+    $ResultRequest["Codigo"]    = $ex->getCode();
+    $ResultRequest["Mensagem"]  = $ex->getMessage();
+    $ResultRequest["Trace"]     = $ex->getTraceAsString();
+    $ResultRequest["File"]      = $ex->getFile();
 
-                    $this->CarregarTabela = new pwebdiv();
-                    $this->CarregarTabela->setUsuario("Alexandre");
-                    $this->CarregarTabela->setFiltros($FiltroPWEBDIV);
-                    $this->CarregarTabela->Select();
-                    $this->DIVsPWEB = $this->CarregarTabela->getArrayDados();
+    echo "<script defer='defer'>bootbox.alert('". $ResultRequest["Codigo"]. ": " . $ResultRequest["Mensagem"] ."')</script>";
 
-                    $TmpFinal = round(microtime(true) * 1000);
-                    $this->TempoTabelaDIVs = ($TmpFinal - $TmpInicial) / 1000 . " Segundos <->". ($TmpFinal - $TmpInicial). " MicroSegundos"; 
-                    
-                    $this->CarregarTabela = null;
-                }
-                
-                public function getCabecalhosPadrao() {
-                    $FiltroPWEBCP[0] = false;
-                    $FiltroPWEBCP[1][0][0] = 1;
-                    $FiltroPWEBCP[1][0][1] = "=";
-                    $FiltroPWEBCP[1][0][2] = $this->idPWEB;
-                    $FiltroPWEBCP[1][0][3] = 2;
-
-                    $TmpInicial = round(microtime(true) * 1000);
-
-                    $this->CarregarTabela = new pwcabecalhopadrao();
-                    $this->CarregarTabela->setUsuario("Alexandre");
-                    $this->CarregarTabela->setFiltros($FiltroPWEBCP);
-                    $this->CarregarTabela->Select();
-                    $this->Cabecalhos = $this->CarregarTabela->getArrayDados();
-
-                    $TmpFinal = round(microtime(true) * 1000);
-                    $this->TempoTabelaCabecalhos = ($TmpFinal - $TmpInicial) / 1000 . " Segundos <->". ($TmpFinal - $TmpInicial). " MicroSegundos"; 
-
-                    $this->CarregarTabela = null;
-
-                }
-                
-                private function getPrivPWEB() {
-                    $FiltroPWEBPRIV[0] = false;
-                    $FiltroPWEBPRIV[1][0][0] = 1;
-                    $FiltroPWEBPRIV[1][0][1] = "=";
-                    $FiltroPWEBPRIV[1][0][2] = $this->idPWEB;
-                    $FiltroPWEBPRIV[1][0][3] = 2;
-
-                    $TmpInicial = round(microtime(true) * 1000);
-
-                    $this->CarregarTabela = new pwebpriv();
-                    $this->CarregarTabela->setUsuario("Alexandre");
-                    $this->CarregarTabela->setFiltros($FiltroPWEBPRIV);
-                    $this->CarregarTabela->Select();
-                    $this->Privilegios = $this->CarregarTabela->getArrayDados();
-
-                    $TmpFinal = round(microtime(true) * 1000);
-                    $this->TempoTabelaPriv = ($TmpFinal - $TmpInicial) / 1000 . " Segundos <->". ($TmpFinal - $TmpInicial). " MicroSegundos"; 
-                    
-                    $this->CarregarTabela = null;
-                }
-                
-                public function getPaginaExist(){
-                    return $this->PageEncontrada;
-                }
-
-
-                }
-        $Pagina = new LoadPages($Campo, $Saida);
-
-        } catch (Exception $ex) {
-            $ResultRequest["Modo"]      = "LoadPage";
-            $ResultRequest["Error"]     = true;
-            $ResultRequest["Codigo"]    = $ex->getCode();
-            $ResultRequest["Mensagem"]  = $ex->getMessage();
-            $ResultRequest["Trace"]     = $ex->getTraceAsString();
-            $ResultRequest["File"]      = $ex->getFile();
-
-            echo "<script defer='defer'>bootbox.alert('". $ResultRequest["Codigo"]. ": " . $ResultRequest["Mensagem"] ."')</script>";
-
-        }
+}
 
 ?>
 
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
 <html>
-    <head>
-        <title></title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-               
-        
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-
-        
-        <script  src="../Scripts/bootbox/bootbox.js?5a" ></script>
-       
-        
-    </head>    
     
+<?php
+   if($Pagina->getPaginaExist() && $Pagina->getPaginaAtiva()){
+       /*Página Encontrada*/
+       echo $Pagina->getCodigoHTML();
+?>
+    
+<?php
+   }else{
+       /*Página não encontrada*/
+?> 
     <body>
-
-        <?php
-           if($Pagina->getPaginaExist()){
-               
-        ?>
-            <div  class="Barra-Menu-Superior" id='Barra-Menu-Superior'></div>
-
-
-            <div class="Pagina-Central" style="display: table" id='Pagina-Central'>
-                <div class="BLE" style="display: table-cell" id='BLE'></div>
-                <div class="BCD" style="display: table-cell" id='BCD'></div>
-                <div class="BLD" style="display: table-cell" id='BLD'></div>
-            </div>
-            <div class="Barra-Status" id='Barra-Status' onmouseup=""></div>
-        <?php
-           }else{
-               /*Quando a página não for encontrada*/
-        ?> 
-            <center><image src="../Imagens/LoadPages/alert.png" style="width: 18%;top: 64px;position: relative;"/> <image src="../Imagens/LoadPages/error-404.png" style="width: 30%;top: 64px;position: relative;" /></center>
-        <?php 
-            }
-           ?>            
+        <center>
+            <image src="../Imagens/LoadPages/alert.png" style="width: 18%;top: 64px;position: relative;"/> 
+            <image src="../Imagens/LoadPages/error-404.png" style="width: 30%;top: 64px;position: relative;" />
+        </center>
     </body>
+<?php 
+    }
+   ?>            
+
 </html>

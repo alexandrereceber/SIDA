@@ -6,6 +6,24 @@
  * 
  */
 
+/**
+ * ESQUEMA DAS TABELAS PARA USO DESSA FUNCIONALIDADE
+ * CRIADO: 17/08/2019
+ * MODIFICADO:
+
+ * ESQUEMA 0 - PAGINAWEB - Modificação
+ * 
+ * CREATE TABLE `paginaweb` (
+ `idPWEB` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Chave Primária',
+ `URLPagina` varchar(200) NOT NULL COMMENT 'Nome de identificação da pagina WEB',
+ `CodigoHTML` longtext NOT NULL COMMENT 'Código HTML da página',
+ `Status` tinyint(1) NOT NULL,
+ `dtCriado` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+ `dtModificado` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ PRIMARY KEY (`idPWEB`),
+ KEY `URLPagina` (`URLPagina`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8
+ */
 
 /**
  * ESQUEMA DAS TABELAS PARA USO DESSA FUNCIONALIDADE
