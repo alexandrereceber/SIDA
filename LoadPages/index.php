@@ -1,4 +1,8 @@
 <?php  
+/**
+ * Arquivo index que carrega páginas HTML de um banco de dados.
+ * @date 18/08/2019
+ */
 error_reporting(0);
 
 if(@!include_once __DIR__ . "/../Config/Configuracao.php"){ //Include que contém configurações padrões do sistema.
@@ -26,7 +30,6 @@ if(!@include_once ConfigSystema::get_Path_Systema() . '/BancoDados/TabelasBD/'. 
 try{
 
     ConfigSystema::getStartTimeTotal();
-    $URL            = $_REQUEST["URL"];
     $Requisicao     = $_REQUEST["pgweb"];
 
     $Saida = explode('/', $Requisicao);
@@ -39,7 +42,7 @@ try{
     $Campo = is_numeric($Saida[$Total]) == true  ? 0 : 1;
     $Saida = $Saida[$Total];
     
-    if(!@include_once './CLPaginasWEB.php'){
+    if(!@include_once '../Controller/LP/LoadPages.php'){
         $ResultRequest["Modo"]     = "LoadPaginasWEB";
         $ResultRequest["Error"]    = true;
         $ResultRequest["Codigo"]   = 10002;
@@ -48,7 +51,9 @@ try{
         echo "<script defer='defer'>alert('". $ResultRequest["Codigo"]. ": " . $ResultRequest["Mensagem"] ."')</script>";
         exit;
     }
-    
+/**
+ * Classe que busca, via banco de dados, as página que serão carregadas no navegador.
+ */
 $Pagina = new LoadPages($Campo, $Saida);
 
 } catch (Exception $ex) {
@@ -71,8 +76,24 @@ $Pagina = new LoadPages($Campo, $Saida);
     
 <?php
    if($Pagina->getPaginaExist() && $Pagina->getPaginaAtiva()){
-       /*Página Encontrada*/
-       echo $Pagina->getCodigoHTML();
+        /*Página Encontrada*/
+        if($Pagina->getTotalByte() > 0)
+            echo $Pagina->getCodigoHTML();
+        else {
+            echo 
+            '<!DOCTYPE html>
+            <html>
+                <head>
+                <title></title>
+                    <meta charset="UTF-8">
+                    <meta http-equiv="CACHE-CONTROL" content="Private">
+                    <meta http-equiv="CACHE-CONTROL" content="cache">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                </head>
+                <body>
+                </body>
+            </html>';          
+        }
 ?>
     
 <?php

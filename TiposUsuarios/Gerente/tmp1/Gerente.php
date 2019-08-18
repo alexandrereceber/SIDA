@@ -967,7 +967,7 @@ echo "<script>var Chave='$sendChave'</script>"
 
     <!-- Custom Theme JavaScript -->
         <script src="/sistemaonline/Scripts/jsControlador/jsConstroller.js?44"></script>
-        <script src="/sistemaonline/TiposUsuarios/Gerente/tmp1/dist/js/sb-admin-2.js?44"></script>
+        <script src="/sistemaonline/TiposUsuarios/Gerente/tmp1/dist/js/sb-admin-2.js?84"></script>
 
 </body>
 

@@ -5,8 +5,6 @@
  */
 
 
-var PWeg = new TabelaHTML("http://"+ Padrao.getHostServer() +"/SistemaOnline/ControladorTabelas/");
-
 var addObjeto = function(){
     var OCriado = {ID: 0, ModoEdicao: 0}, Edicao = {ModoEdicao: false}
     var tags = {
@@ -561,40 +559,7 @@ class FOCJustInTime extends JSController{
         var PWJanela = this;
         
         var bts = [
-                    [
-                        "CarregarPaginas", //Nome do objeto
-                        "<i class=\"material-icons\"  style=\"font-size:18px\">cloud_download</i>", //Ícone do Objeto
-                        function(){
-                        var Janela = {
-                                                    Janela: {Nome: "myJanelas", Tipo: "modal-lg", Tamanho: "50%"},
-                                                    Header: {Title: "Páginas Web", CorTexto: "white", backgroundcolor: "#4c32a4c4"}, 
-                                                    Body: {Conteudo: "<div id='PaginasWEB'></div>"}, 
-                                                    Footer: {
-                                                                Cancelar: {Nome: "Cancelar", classe: "" , Visible: "none", Funcao: function(){var o}}, 
-                                                                Aceitar: {Nome: "Close", classe: "" , Visible: "block", Funcao: function(){var o}}
-                                                            }
-                                                };
-                            PWJanela.showJanela(Janela);
-                            PWeg.setTabela = "8c6a97b2251d1d31c56e919458172e7f";
-                            PWeg.setRecipiente = "PaginasWEB";
-                            PWeg.NomeInstancia = "PWeg";
-                            PWeg.FuncoesIcones[0] = async function(){
-                                var Chv = arguments[1].dataset.chaveprimaria,
-                                ChvQ = arguments[0].getBreakChaves(Chv),
-                                Valor = arguments[0].getFindValor(ChvQ,1)
-                                
-                                await ControladorPaginaWEB.LoadPaginaWEB(Valor);
-                            }
-                            PWeg.DadosEnvio.sendOrdemBY = [0, "asc"];
-                            PWeg.show();
-                        }, //Função do botão que será executado.
-                        "google", //Tipo de ícone que será utilizado.
-                        true,//Será visível ou não
-                        "Seleciona a página WEB que será editada.",//O propósito a ser atingido pelo botão.
-                        false,//Draggable
-                        "Insercao",
-                        "Action"
-                    ],
+                    
                     [
                         "ModoEdicao",
                         "<i class=\"material-icons\" style=\"font-size:18px\">mode_edit</i>",
@@ -795,7 +760,14 @@ class FOCJustInTime extends JSController{
             CxF.innerHTML = "<div id='CxFInterna'>\n\
                                     <div id='BTCxFerramenta'>Caixa de Ferramenta</div>\n\
                                     <div id='CxBotoesFerramenta'></div>\n\
-                                    <div style='position: relative;top: -37px;left: -1;width: 100%;'><button button='' type='button' class='btn btn-primary AtualizarDados' style='width: 101%;'>Atualizar</button></div>\n\
+                                    <div style='\n\
+                                            position: relative;\n\
+                                            top: -37px;\n\
+                                            left: -1;\n\
+                                            width: 100%;\n\
+                                            z-index: 9999999999'>\n\
+                                        <button button='' type='button' class='btn btn-primary AtualizarDados' style='width: 101%;'>Atualizar</button>\n\
+                                    </div>\n\
                             </div>"
             document.activeElement.appendChild(CxF);
             $("#BTCxFerramenta").css("cursor","all-scroll");

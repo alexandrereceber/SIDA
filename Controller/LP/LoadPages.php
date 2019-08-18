@@ -116,145 +116,99 @@
 
  */
 
-if(@!include_once __DIR__ . "/../../Config/Configuracao.php"){ //Include que contém configurações padrões do sistema.
-    $ResultRequest["Modo"]        = "Include";
-    $ResultRequest["Error"]    = true;
-    $ResultRequest["Codigo"]   = 10000;
-    $ResultRequest["Mensagem"] = "O arquivo de Configuração não foi encontrado. ";
-    
-    echo json_encode($ResultRequest);
-    exit;
-}; 
-/**
- * Inclui o arquivo que contém as classes com o nome das tabelas do banco de dados AcessoBancoDados::get_BaseDados()
+/*
+ * Classe que representa o carregamento do código HTML da página.
  */
-if(!@include_once ConfigSystema::get_Path_Systema() . '/BancoDados/TabelasBD/'. AcessoBancoDados::get_BaseDados() .'.php'){
-    $ResultRequest["Modo"]        = "Include";
-    $ResultRequest["Error"]    = true;
-    $ResultRequest["Codigo"]   = 10001;
-    $ResultRequest["Mensagem"] = "A configuração do banco de dados não foi encontrado. ";
-    
-    echo json_encode($ResultRequest); 
-    exit;
-}
-error_reporting(0);
 
-try{
-   
-    ConfigSystema::getStartTimeTotal();
-    $URL            = $_REQUEST["URL"];
-    $Requisicao     = $_REQUEST["Req"];
-    $Metodo         = $_REQUEST["Metodo"];
-    $SSL            = $_REQUEST["SSL"];
-    $Formato        = $_REQUEST["sendRetorno"]  == "" ? "JSON" : $_REQUEST["sendRetorno"]; //Atribui um formato padrão
+/**
+ * Descrição da CLPaginasWEB(Classe Página WEB)
+ * Carrega, através do banco de dados, o código dos site HTML.
+ *
+ * @author Alexandre José da Silva Marques
+ * @date 17/08/2019
+ */
 
-    $Operacao       = OperacaoTable::getMD5ForOperacao($_REQUEST["sendModoOperacao"]);
-    
-    $PaginaWEB = $_REQUEST["PWEB"];
-    
-    if($PaginaWEB["Tipo"] == "GET"){
-        $Saida = explode('/', $Requisicao);
-        $Total = count($Saida) - 1;
+class LoadPages{
+
+        private $CarregarTabela = null;
+        private $Cabecalhos = null;
+        private $CamposPWEB = null;
+        private $PageEncontrada = false;
+        private $PaginaAtivada = false;
+        private $DIVsPWEB = null;
+        private $Privilegios = null;
+        private $idPWEB = null;
+        private $TempoTabelaPaginaWEB = 0, 
+                $TempoTabelaDIVs = 0, 
+                $TempoTabelaCabecalhos = 0, 
+                $TempoTabelaPriv = 0;
         /**
-         * Verifica se a busca é por texto ou númerica.
-         * Campo = 0 - ID da página
-         * Campo = 1 - É o título da página.
+         * Busca a página de internet requisitada na URL
+         * @param type $Cmp
+         * @param type $Sd
          */
-        $Campo = is_numeric($Saida[$Total]) ==true  ? 0 : 1;
-        $Saida = $Saida[$Total];
+        function __construct($Cmp, $Sd) {
+
+            $FiltroPW[0] = false;
+            $FiltroPW[1][0][0] = $Cmp;
+            $FiltroPW[1][0][1] = "=";
+            $FiltroPW[1][0][2] = $Sd;
+            $FiltroPW[1][0][3] = 2;
+
+            $TmpInicial = round(microtime(true) * 1000);
+
+            $this->CarregarTabela = new paginaweb();
+            $this->CarregarTabela->setUsuario("Alexandre");
+            $this->CarregarTabela->setFiltros($FiltroPW);
+            $this->CarregarTabela->Select();
+            $this->PageEncontrada = $this->CarregarTabela->getInfoPaginacao()["TotalLinhas"] == 0 ? false: true;
+
+            $this->CamposPWEB = $this->CarregarTabela->getArrayDados();
+            $this->idPWEB = $this->CamposPWEB[0][0];
+            $this->PaginaAtivada = $this->CamposPWEB[0][3] == 0 ? false : true;
+            
+            $TmpFinal = round(microtime(true) * 1000);
+            $this->TempoTabelaPaginaWEB = ($TmpFinal - $TmpInicial) / 1000 . " Segundos <->". ($TmpFinal - $TmpInicial). " MicroSegundos"; 
+
+            $this->CarregarTabela = null;
+        }
+
+        private function getPrivPWEB() {
+            $FiltroPWEBPRIV[0] = false;
+            $FiltroPWEBPRIV[1][0][0] = 1;
+            $FiltroPWEBPRIV[1][0][1] = "=";
+            $FiltroPWEBPRIV[1][0][2] = $this->idPWEB;
+            $FiltroPWEBPRIV[1][0][3] = 2;
+
+            $TmpInicial = round(microtime(true) * 1000);
+
+            $this->CarregarTabela = new pwebpriv();
+            $this->CarregarTabela->setUsuario("Alexandre");
+            $this->CarregarTabela->setFiltros($FiltroPWEBPRIV);
+            $this->CarregarTabela->Select();
+            $this->Privilegios = $this->CarregarTabela->getArrayDados();
+
+            $TmpFinal = round(microtime(true) * 1000);
+            $this->TempoTabelaPriv = ($TmpFinal - $TmpInicial) / 1000 . " Segundos <->". ($TmpFinal - $TmpInicial). " MicroSegundos"; 
+
+            $this->CarregarTabela = null;
+        }
+
+        public function getPaginaExist(){
+            return $this->PageEncontrada;
+        }
+
+        public function getPaginaAtiva() {
+            return $this->PaginaAtivada;
+        }
         
-    }else if($PaginaWEB["Tipo"] == "POST"){
-        $Campo = 1;
-        $Saida = $PaginaWEB["CarregarPagina"];
-    }else{
-
-    }
-    
-    //-------------------Página WEb-------------------------------
-    $FiltroPW[0] = false;
-    $FiltroPW[1][0][0] = $Campo;
-    $FiltroPW[1][0][1] = "=";
-    $FiltroPW[1][0][2] = $Saida;
-    $FiltroPW[1][0][3] = 2;
-    
-    $CarregarPagina = new paginaweb();
-    $CarregarPagina->StartClock();
-    $CarregarPagina->setUsuario("Alexandre");
-    $CarregarPagina->setFiltros($FiltroPW);
-    $CarregarPagina->Select();
-    $CarregarPagina->EndClock();
-    $ResultRequest["paginaweb"] = $CarregarPagina->getArrayDados();
-    $idPWEB = $ResultRequest["paginaweb"][0][0];
-
-    //-------------------Visualização dos segmentos da página-------------------------------
-    
-    $FiltroPWEBDIV[0] = false;
-    $FiltroPWEBDIV[1][0][0] = 1;
-    $FiltroPWEBDIV[1][0][1] = "=";
-    $FiltroPWEBDIV[1][0][2] = $idPWEB;
-    $FiltroPWEBDIV[1][0][3] = 2;
-
-    $CarregarPagina = new pwebdiv();
-    $CarregarPagina->StartClock();
-    $CarregarPagina->setUsuario("Alexandre");
-    $CarregarPagina->setFiltros($FiltroPWEBDIV);
-    $CarregarPagina->Select();
-    $CarregarPagina->EndClock();
-    $ResultRequest["pwebdiv"] = $CarregarPagina->getArrayDados();
-
-    //-------------------Visualização do cabeçalho padrão-------------------------------
-
-    $FiltroPWEBCP[0] = false;
-    $FiltroPWEBCP[1][0][0] = 1;
-    $FiltroPWEBCP[1][0][1] = "=";
-    $FiltroPWEBCP[1][0][2] = $idPWEB;
-    $FiltroPWEBCP[1][0][3] = 2;
-
-    $CarregarPagina = new pwcabecalhopadrao();
-    $CarregarPagina->StartClock();
-    $CarregarPagina->setUsuario("Alexandre");
-    $CarregarPagina->setFiltros($FiltroPWEBCP);
-    $CarregarPagina->Select();
-    $CarregarPagina->EndClock();
-    $ResultRequest["pwcabecalhopadrao"] = $CarregarPagina->getArrayDados();
-
-    //-------------------Verifica se o usuário tem privilégio de visualização-------------------------------
-
-    $FiltroPWEBPRIV[0] = false;
-    $FiltroPWEBPRIV[1][0][0] = 1;
-    $FiltroPWEBPRIV[1][0][1] = "=";
-    $FiltroPWEBPRIV[1][0][2] = $idPWEB;
-    $FiltroPWEBPRIV[1][0][3] = 2;
-
-    $CarregarPagina = new pwebpriv();
-    $CarregarPagina->StartClock();
-    $CarregarPagina->setUsuario("Alexandre");
-    $CarregarPagina->setFiltros($FiltroPWEBPRIV);
-    $CarregarPagina->Select();
-    $CarregarPagina->EndClock();
-    $ResultRequest["pwebpriv"] = $CarregarPagina->getArrayDados();
-    
-    $ResultRequest["Indexador"]         = time();
-    
-    $ResultRequest["Modo"]             = "S";
-    $ResultRequest["Error"] = false;
-
-
-   /**
-    * Armazena o tempo gasto com o processamento até esse ponto. Excluir Dados
-    */
-    $ResultRequest["TempoTotal"]["BancoDados"]   =  $CarregarPagina->getTempoTotal();
-    $ResultRequest["TempoTotal"]["SitemaTotal"]  =  ConfigSystema::getTimeTotal();
-
-    echo json_encode($ResultRequest);
-
-} catch (Exception $ex) {
-    $ResultRequest["Modo"]      = "LoadPage";
-    $ResultRequest["Error"]     = true;
-    $ResultRequest["Codigo"]    = $ex->getCode();
-    $ResultRequest["Mensagem"]  = $ex->getMessage();
-    $ResultRequest["Trace"]     = $ex->getTraceAsString();
-    $ResultRequest["File"]      = $ex->getFile();
-
-    echo json_encode($ResultRequest);
+        public function getCodigoHTML(){
+            return $this->CamposPWEB[0][2];
+        }
+        public function getTotalByte() {
+           return strlen($this->getCodigoHTML());
+        }
+        public function getIDPWEB() {
+            return $this->idPWEB;
+        }
 }

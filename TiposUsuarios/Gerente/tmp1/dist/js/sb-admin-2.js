@@ -47,5 +47,5 @@ $(function() {
 });
 
 $(".irEditar").click(function(){
-    window.open("http://" + Padrao.getHostServer() + "/sistemaonline/editpg?s=" + Chave)
+    window.open("http://" + Padrao.getHostServer() + "/sistemaonline/editpg?s=" + Chave + "&pgweb=11")
 })
