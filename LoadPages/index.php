@@ -80,6 +80,9 @@ $Pagina = new LoadPages($Campo, $Saida);
         if($Pagina->getTotalByte() > 0)
             echo $Pagina->getCodigoHTML();
         else {
+            /**
+             * Página em construção
+             */
             echo 
             '<!DOCTYPE html>
             <html>

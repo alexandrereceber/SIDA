@@ -17,17 +17,19 @@ class ControladorPaginaWEBAtualizar extends JSController{
 
         this.DadosEnvio.sendCamposAndValores = Campos;
         this.DadosEnvio.sendChavesPrimarias = [[0,IDPWEB]];
+        $("#FerramentasOnJustTime").remove();
+        $("#CxFerramentaWEBDesign").remove();
         
-        CodigoHTMLPWEB       = document.children[0].innerHTML;
-        
+        CodigoHTMLPWEB       = $("#CodigoHTMLPWEB").html();
+
         this.DadosEnvio.sendCamposAndValores[0] = {name:"CodigoHTML", value: CodigoHTMLPWEB};
 
        var TratarResposta = await CPaginaWEBAtualizar.atualizar();
-        
+
         if(TratarResposta.Error != false){
             this.TratarErros(TratarResposta);
             return false;
-        }        
+        }
     }    
 }
 

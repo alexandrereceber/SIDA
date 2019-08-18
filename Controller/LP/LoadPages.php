@@ -165,7 +165,7 @@ class LoadPages{
 
             $this->CamposPWEB = $this->CarregarTabela->getArrayDados();
             $this->idPWEB = $this->CamposPWEB[0][0];
-            $this->PaginaAtivada = $this->CamposPWEB[0][3] == 0 ? false : true;
+            $this->PaginaAtivada = $this->CamposPWEB[0][4] == 0 ? false : true;
             
             $TmpFinal = round(microtime(true) * 1000);
             $this->TempoTabelaPaginaWEB = ($TmpFinal - $TmpInicial) / 1000 . " Segundos <->". ($TmpFinal - $TmpInicial). " MicroSegundos"; 
@@ -203,8 +203,13 @@ class LoadPages{
         }
         
         public function getCodigoHTML(){
+            return $this->CamposPWEB[0][3];
+        }
+        
+        public function getCodigoHead(){
             return $this->CamposPWEB[0][2];
         }
+
         public function getTotalByte() {
            return strlen($this->getCodigoHTML());
         }

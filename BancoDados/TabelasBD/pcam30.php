@@ -5130,6 +5130,167 @@ class paginaweb extends ModeloTabelas{
                 * SQL de CRUD, mas se seu valor for em branco o sistema irá tratá-lo como um campo virtual, podendo ser
                 * utilizado os métodos jobs e outros para gerar conteúdo para o cliente navegador.
                 */
+               "Field"          => "HeadePWEB",
+               /**
+                * É o nome que será utilizado no sistema como label ou sejá o nome que será exibido dentro da página.
+                * Muito utilizado na formação dos campos de insersão e edição HTML.
+                */
+               "CodNome"        => "HeadePWEB",
+                /**
+                 * Tipo de conteúdo e de campo que será utilizado para edição ou visualização dentro dos componentes
+                 * Js na página WEB via HTML. Atualmente está mapeado o text e imagem no componente tableHTML. Mas os componentes poderão
+                 * ser implementados com qualquer tipo, desde que cada um trate-os.
+                 */
+               "TypeConteudo"   => ["text"],
+                /**
+                 * Habilita ou não o uso de filtro pelo campo. [true|false]
+                 */
+               "Filter"         => [],       
+                /**
+                 * Informa ao sistema que o campo atual é uma chave primária e se ela será exibida ou não ao usuário.
+                 */
+               "Key"            => [false, false],
+                /**
+                 * Informa ao sistema que esse campo possue uma chave extrangeira vinculada.
+                 */
+               "ChvExt"         => [    
+                                        /**
+                                         * TExt - Tabela Extrangeira
+                                         * Informa ao sistema que o campo atual possue uma tabela extrangeira.
+                                         */
+                                        "TExt" => false,
+                                        /**
+                                         * Nome da tabela extrangeira.
+                                         */
+                                        "Tabela"=> "",
+                                        /**
+                                         * Índice do campo da tabela extrangeira que está vinculado à este campo.
+                                         */
+                                        "IdxCampoVinculado"=> 0, 
+                                        /**
+                                         * Índice da função que representa esta relação.
+                                         */
+                                        "Funcao"=> 0,
+                                        /**
+                                         * Nome do botão que será exibido na tabela HTML.
+                                         */
+                                        "NomeBotao"=> ""
+                                    ],
+                /**
+                 * Campo com funções ainda não definidos.
+                 */
+               "Mask"           => false,
+                /**
+                 * Informa ao sistema se o campo será editável ou não.
+                 */
+               "Editar"         => false,
+                /**
+                 * Informa se o campo será visível na tabela HTML.
+                 */
+               "Visible"        => true,
+                /**
+                 * Campo com utilização futura. Apesar do regexr ser implementado via método dentro de cada class.
+                 */
+               "Regex"          => [Exist=> false, Regx=> ""],
+                /**
+                 * Subarray - informa se o campo será atualizável
+                 */
+               "Formulario"     => [
+                                        /**
+                                         * Informa ao sistema que o campo será atualizável.
+                                         */
+                                        "Exibir"=> false,
+                                        /**
+                                         * Texto explicativo que ficará dentro do campo input type text
+                                         */
+                                        "Placeholder"=> "", 
+                                        /**
+                                         * Tipo de componente que será visualizado no formulário. inputbox, select
+                                         */
+                                        "TypeComponente"=>"inputbox",
+                                        /**
+                                         * Usado conjuntamente com o campo anterior.
+                                         */
+                                        "TypeConteudo"=> ["text"],
+                                        /**
+                                         * Nome do campo que será exportado para o controller, esse campo deverá ter o nome diferente do nome
+                                         * original por motivo de segurança
+                                         */
+                                        "Name" => "HeadePWEB", 
+                                        /**
+                                         * Regex do campo input text
+                                         */
+                                        "Patterns"=> "",
+                                        /**
+                                         * Informação que será exibida quando o cursor fixa em cima do componente.
+                                         */
+                                        "Titles" => "",
+                                        /**
+                                         * Campo terá preenchimento obrigatório.
+                                         */
+                                        "Required" => "",
+                                        /**
+                                         * Tamanho do campo
+                                         */
+                                        "width" => "50px",
+                                        "height"=>"",
+                                        /**
+                                         * Salto dos números na caixa do tipo number
+                                         */
+                                        "step"=>"",
+                                        /**
+                                         * 
+                                         */
+                                        "size"=>"",
+                                        /**
+                                         * Número mínimo dentro da caixa do tipo number
+                                         */
+                                        "min"=>"",
+                                        /**
+                                         * Número máximo dentro da caixa do tipo number
+                                         */
+                                        "max"=>"",
+                                        "maxlength"=>"",
+                                        "form"=>"",
+                                        "formaction"=>"",
+                                        "formenctype"=>"",
+                                        "formmethod"=>"",
+                                        "formnovalidate"=>"",
+                                        "formtarget"=>"",
+                                        "align"=>"",
+                                        "alt"=>"",
+                                        "autocomplete"=>"",
+                                        /**
+                                         * Autofocus
+                                         */
+                                        "autofocus"=> true,
+                                        "checked"=>"",
+                                        "dirname"=>"",
+                                        /**
+                                         * Campo será somente leitura
+                                         */
+                                        "readonly"=>"",
+                                        /**
+                                         * Utiliza o editor de texto web via js
+                                         */
+                                        "EditorText"=> true
+                                    ],
+               /**
+                * Informa ao sistema que o campo deverá, via tabela html, a opção de ordernar o campo.
+                */
+               "OrdemBY"        => true
+           ],
+        [
+              /**
+               * Esse índice é utilizado em todo o sistema, através dele o sistema pode buscar o nome, real do campo,
+               * e outras informações.
+               */
+               "Index"          => 3,
+               /**
+                * Nome real do campo, dentro da tabela, no banco de dados. É utilizado pelo sistema para criar as intruções
+                * SQL de CRUD, mas se seu valor for em branco o sistema irá tratá-lo como um campo virtual, podendo ser
+                * utilizado os métodos jobs e outros para gerar conteúdo para o cliente navegador.
+                */
                "Field"          => "CodigoHTML",
                /**
                 * É o nome que será utilizado no sistema como label ou sejá o nome que será exibido dentro da página.
@@ -5216,7 +5377,7 @@ class paginaweb extends ModeloTabelas{
                                          * Nome do campo que será exportado para o controller, esse campo deverá ter o nome diferente do nome
                                          * original por motivo de segurança
                                          */
-                                        "Name" => "PaginaW", 
+                                        "Name" => "CodigoHTML", 
                                         /**
                                          * Regex do campo input text
                                          */
@@ -5285,7 +5446,7 @@ class paginaweb extends ModeloTabelas{
                * Esse índice é utilizado em todo o sistema, através dele o sistema pode buscar o nome, real do campo,
                * e outras informações.
                */
-               "Index"          => 3,
+               "Index"          => 4,
                /**
                 * Nome real do campo, dentro da tabela, no banco de dados. É utilizado pelo sistema para criar as intruções
                 * SQL de CRUD, mas se seu valor for em branco o sistema irá tratá-lo como um campo virtual, podendo ser

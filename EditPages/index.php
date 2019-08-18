@@ -91,38 +91,49 @@ $Pagina = new LoadPages($Campo, $Saida);
    if($Pagina->getPaginaExist() && $Pagina->getPaginaAtiva()){
         /*Página Encontrada*/
         if($Pagina->getTotalByte() > 0){
-            echo $Pagina->getCodigoHTML();
+            echo '<head>
+                    ' . $Pagina->getCodigoHead() . '
+                 </head>
+                 <body>
+                     <div id="CodigoHTMLPWEB" data-editarpropriedades=false style="display:flex; width:99vw; height:100vh">
+                         ' . $Pagina->getCodigoHTML() . '
+                     </div>
+                 </body>';            
+            
         }
         else {
             echo 
             '   <head>
-                <title></title>
+                    <title></title>
                     <meta charset="UTF-8">
                     <meta http-equiv="CACHE-CONTROL" content="Private">
                     <meta http-equiv="CACHE-CONTROL" content="cache">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 </head>
                 <body>
+                    <div id="CodigoHTMLPWEB" data-editarpropriedades=false style="display:flex; width:99vw; height:100vh">
+                    </div>
                 </body>';          
         }
 
-echo "<script>var Chave='$sendChave', IDPWEB='". $Pagina->getIDPWEB() . "'</script>";
+
 echo 
-    '
-    <link rel="stylesheet" href="./CSS/CxFerramentaWEB/CxFerramentaWD.css?s='. time() .'">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    '<div id="FerramentasOnJustTime">
+        <script>var Chave="'.$sendChave.'", IDPWEB="'. $Pagina->getIDPWEB() . '"</script>
+        <link rel="stylesheet" href="./CSS/CxFerramentaWEB/CxFerramentaWD.css?s='. time() .'">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
-    <script  src="./Scripts/bootbox/bootbox.js?5a" defer="defer"></script>
-    <script  src="./Scripts/jsControlador/jsConstroller.js?s='. time() .'" defer="defer"></script>     
-    <script  src="./Componentes/jsControladorPWebEdit.js?s='. time() .'" defer="defer"></script>          
-    <script  src="./Componentes/OCJustInTime.js?s='. time() .'" defer="defer"></script>   ';        
+        <script  src="./Scripts/bootbox/bootbox.js?5a" defer="defer"></script>
+        <script  src="./Scripts/jsControlador/jsConstroller.js?s='. time() .'" defer="defer"></script>     
+        <script  src="./Componentes/jsControladorPWebEdit.js?s='. time() .'" defer="defer"></script>          
+        <script  src="./Componentes/OCJustInTime.js?s='. time() .'" defer="defer"></script></div>';        
 
 ?>
     
