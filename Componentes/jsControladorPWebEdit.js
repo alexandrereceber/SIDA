@@ -12,24 +12,33 @@ class ControladorPaginaWEBAtualizar extends JSController{
         return await this.Atualizar();
     }
     
-    async EnviarFormularioEditar(){
-        var Campos = [], CodigoHTMLPWEB = "";
-
-        this.DadosEnvio.sendCamposAndValores = Campos;
-        this.DadosEnvio.sendChavesPrimarias = [[0,IDPWEB]];
-        $("#FerramentasOnJustTime").remove();
-        $("#CxFerramentaWEBDesign").remove();
-        
-        CodigoHTMLPWEB       = $("#CodigoHTMLPWEB").html();
-
-        this.DadosEnvio.sendCamposAndValores[0] = {name:"CodigoHTML", value: CodigoHTMLPWEB};
-
-       var TratarResposta = await CPaginaWEBAtualizar.atualizar();
-
-        if(TratarResposta.Error != false){
-            this.TratarErros(TratarResposta);
+    EnviarFormularioEditar(){
+        if(addObjeto.getModoEdicao()){
+            bootbox.alert("<h3>Favor sair do modo de edição!<h3>");
             return false;
         }
+        
+        bootbox.confirm("<h3>Tem certeza que deseja realizar essa operação?</h3>",async function(r){
+            if(r){
+                var Campos = [], CodigoHTMLPWEB = "", CodigoHTMLHead = "", CodigoLimpo = null;
+
+                CPaginaWEBAtualizar.DadosEnvio.sendCamposAndValores = Campos;
+                CPaginaWEBAtualizar.DadosEnvio.sendChavesPrimarias = [[0,IDPWEB]];
+
+                CodigoHTMLHead  = document.head.innerHTML;
+                CodigoHTMLPWEB  = $("#CodigoHTMLPWEB").html().trim();
+
+                CPaginaWEBAtualizar.DadosEnvio.sendCamposAndValores[0] = {name:"CodigoHTML", value: CodigoHTMLPWEB};
+
+               var TratarResposta = await CPaginaWEBAtualizar.atualizar();
+
+                if(TratarResposta.Error != false){
+                    CPaginaWEBAtualizar.TratarErros(TratarResposta);
+                    return false;
+                }         
+            }
+        })
+        
     }    
 }
 

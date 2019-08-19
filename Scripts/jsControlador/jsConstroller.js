@@ -31,7 +31,7 @@ var Padrao = function(){
             return Operacao.readyState;
         },
         getHostServer: function(){
-            return "localhost"
+            return "10.56.35.223"
         }
     }
 }()

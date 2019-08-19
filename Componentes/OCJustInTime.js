@@ -402,7 +402,7 @@ class FOCJustInTime extends JSController{
         if(addObjeto.getModoEdicao() == false){
             addObjeto.setModoEdicao(true)
             let 
-                i   = '<div><i class="material-icons" style="font-size:18px">visibility</i></div>',
+                i   = '<div style="height:18px"><i class="material-icons" style="font-size:18px">visibility</i></div>',
                 str = 'Modo de visualização'    ;
             arguments[0][0].innerHTML = i;
             arguments[0][0].title = str;
@@ -410,7 +410,7 @@ class FOCJustInTime extends JSController{
             
         }else{
             addObjeto.setModoEdicao(false)
-            let i = '<div><i class="material-icons" style="font-size:18px">mode_edit</i></div>',
+            let i = '<div style="height:18px"><i class="material-icons" style="font-size:18px">mode_edit</i></div>',
                 str = 'Modo de edição'    ;
             arguments[0][0].innerHTML = i;
             arguments[0][0].title = str;
@@ -496,13 +496,13 @@ class FOCJustInTime extends JSController{
                                             o.remove();
                                             var t = addObjeto.getTag(this.nodeName), obj;
                                             if(!t) return false;
-                                            obj = (t.tagDescribe).replace('{{OCHeight}}', parseInt(this.offsetHeight / 2))
-                                            obj = (obj).replace('{{OCWidth}}', "100%")
+                                            obj = (t.tagDescribe).replace('{{OCHeight}}', parseInt(this.offsetHeight / 2));
+                                            obj = (obj).replace('{{OCWidth}}', "100%");
 
-                                            let ob = $(this).append(obj)
+                                            let ob = $(this).append(obj);
                                             ObjetoSelecionado.setRenderizarCFI();
                                             ObjetoSelecionado.addFerramentasInternas();
-                                            ObjetoSelecionado.setEventDroppableObjetoCriado(ob[0])
+                                            ObjetoSelecionado.setEventDroppableObjetoCriado(ob[0]);
                                         }
                                         
                                         break;
@@ -564,7 +564,6 @@ class FOCJustInTime extends JSController{
                         "ModoEdicao",
                         "<i class=\"material-icons\" style=\"font-size:18px\">mode_edit</i>",
                         function(){
-                            
                             PWJanela.addFuncionalidades(arguments);
                         },
                         "google",
@@ -590,7 +589,7 @@ class FOCJustInTime extends JSController{
         bts.forEach(function(i,v,p){
             if(i[4]==false) return false;
             if(i[3] == "google"){ //Ícones Google
-                $("#CxBotoesFerramenta").append("<div data-toggle='BFTips' data-tipo='"+i[0]+"' data-subtipo='"+i[7]+"' data-action='"+i[8]+"'  title='"+i[5]+"' class='CxBtoes' id='bt_"+ i[0] +"' style='display: "+ i[4] +"'><div>"+ i[1] +"</div></div>");
+                $("#CxBotoesFerramenta").append("<div data-toggle='BFTips' data-tipo='"+i[0]+"' data-subtipo='"+i[7]+"' data-action='"+i[8]+"'  title='"+i[5]+"' class='CxBtoes' id='bt_"+ i[0] +"' style='display: "+ i[4] +"'><div style='height:18px'>"+ i[1] +"</div></div>");
                 $("#bt_"+ i[0]).click(function(){
                     i[2](this);
                 })
@@ -633,7 +632,7 @@ class FOCJustInTime extends JSController{
         HTMLProp = function(F, Value, type){
             let Campo = ""
             Campo = '<div class="form-group">'+
-                        '<label for="usr"><b>'+ F +':</b> </label>'+
+                        '<label for="usr" style="font-size: 12px"><b>'+ F +':</b> </label>'+
                         '<input type="'+ type.tipo +'" class="InputProperty" style="width: 100%" data-property="'+ F +'" class="form-control" id="usr" value="'+ Value +'">'+
                     '</div>';
 
@@ -681,9 +680,9 @@ class FOCJustInTime extends JSController{
             if( Exit == null){
                 let TabOptions = function(){
                     return '<div class="container">'+
-                                '<h4>Propriedades:</h4>'+
+                                '<h5>Propriedades:</h5>'+
                                 '<br>'+
-                                  '<ul class="nav nav-tabs" role="tablist">'+
+                                  '<ul class="nav nav-tabs" role="tablist" style="font-size: 12px">'+
                                   '<li class="nav-item">'+
                                     '<a class="nav-link active" data-toggle="tab" href="#Definicoes">Definições</a>'+
                                   '</li>'+
@@ -714,9 +713,9 @@ class FOCJustInTime extends JSController{
                 
                 CxF.id = "CxPropriedadesWEBDesign";
                 CxF.className = "CxPropriedadesWEB"
-                CxF.style.top = event.currentTarget.offsetParent.parentNode.offsetTop - 300
-                CxF.style.left = event.currentTarget.offsetParent.parentNode.offsetLeft
-
+                CxF.style.top = event.currentTarget.offsetParent.offsetTop  + "px"
+                CxF.style.left = event.currentTarget.offsetParent.offsetLeft + "px"
+                CxF.style.position = "absolute"
                 CxF.innerHTML = "<div id='CxPInterna'>\n\
                                         <div id='BTCxPropriedades'>Caixa de Propriedades</div>\n\
                                         <div id='CxBotoesPropriedades'>"+ TabOptions() +"</div>\n\
@@ -852,6 +851,10 @@ class FOCJustInTime extends JSController{
 };
 
 var CaixaFerramenta = new FOCJustInTime();
+$(window).on("resize", function(){
+    ObjetoSelecionado.setRenderizarCFI();
+    console.log("s")
+})
 
 document.addEventListener("keydown", moverObjetosInternos, true);
 

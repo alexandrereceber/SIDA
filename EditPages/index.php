@@ -110,7 +110,7 @@ $Pagina = new LoadPages($Campo, $Saida);
                     <meta http-equiv="CACHE-CONTROL" content="cache">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 </head>
-                <body>
+                <body >
                     <div id="CodigoHTMLPWEB" data-editarpropriedades=false style="display:flex; width:99vw; height:100vh">
                     </div>
                 </body>';          

@@ -5130,12 +5130,12 @@ class paginaweb extends ModeloTabelas{
                 * SQL de CRUD, mas se seu valor for em branco o sistema irá tratá-lo como um campo virtual, podendo ser
                 * utilizado os métodos jobs e outros para gerar conteúdo para o cliente navegador.
                 */
-               "Field"          => "HeadePWEB",
+               "Field"          => "HeadPWEB",
                /**
                 * É o nome que será utilizado no sistema como label ou sejá o nome que será exibido dentro da página.
                 * Muito utilizado na formação dos campos de insersão e edição HTML.
                 */
-               "CodNome"        => "HeadePWEB",
+               "CodNome"        => "HeadPWEB",
                 /**
                  * Tipo de conteúdo e de campo que será utilizado para edição ou visualização dentro dos componentes
                  * Js na página WEB via HTML. Atualmente está mapeado o text e imagem no componente tableHTML. Mas os componentes poderão
@@ -5216,7 +5216,7 @@ class paginaweb extends ModeloTabelas{
                                          * Nome do campo que será exportado para o controller, esse campo deverá ter o nome diferente do nome
                                          * original por motivo de segurança
                                          */
-                                        "Name" => "HeadePWEB", 
+                                        "Name" => "HeadPWEB", 
                                         /**
                                          * Regex do campo input text
                                          */

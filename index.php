@@ -35,7 +35,7 @@ and open the template in the editor.
         <script  src="Componentes/jsControladorPWeb.js?d5ssd63" defer="defer"></script>     
         
     </head>
-    <body>
+    <body >
 
 
 <!-- The Modal -->
