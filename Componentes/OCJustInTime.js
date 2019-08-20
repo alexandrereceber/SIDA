@@ -147,9 +147,8 @@ var ObjetoSelecionado = function() {
 
             for(var obj of AllObjeto.entries()){
                 if(addObjeto.verifyObjeto(obj[1])) continue;
-           
-                positionTop = (obj[1].parentNode).offsetTop - heightBarraProperty ;
-                positionLeft = (obj[1].parentNode).offsetLeft + (obj[1].parentNode).clientWidth - widthProperty;
+                    positionTop = (obj[1].parentNode) < heightBarraProperty ? (obj[1].parentNode) : ((obj[1].parentNode)- heightBarraProperty);
+                    positionLeft = (obj[1].parentNode).offsetLeft + (obj[1].parentNode).clientWidth - widthProperty;
            
                 $(obj[1]).css("top",positionTop);
                 $(obj[1]).css("left",positionLeft)
@@ -181,10 +180,14 @@ var ObjetoSelecionado = function() {
             $("#CxPropriedadesWEBDesign").remove()
            
        },
-       
+       getVerificarObjetoPaiAcimaPagina(o){
+           
+       }
+       ,
        criarBarraFerramentaInterna(o){
            let positionTop = 0, positionLeft = 0, heightBarraProperty = 32, widthProperty = 73;
-           positionTop = o.offsetTop - heightBarraProperty;
+           
+           positionTop = o.offsetTop < heightBarraProperty ? o.offsetTop : (o.offsetTop- heightBarraProperty);
            positionLeft = o.offsetLeft + o.clientWidth - widthProperty;
            
            for(var Verify of o.childNodes.entries()){
