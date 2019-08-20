@@ -8,7 +8,7 @@
 var addObjeto = function(){
     var OCriado = {ID: 0, ModoEdicao: 0}, Edicao = {ModoEdicao: false}
     var tags = {
-                    DIV : "<div data-EditarPropriedades=true id='{{name}}' style='display: flex;border: solid 1px #deb887; width: {{OCWidth}}; height: {{OCHeight}}px; margin: auto;'></div>"
+                    DIV : "<div data-EditarPropriedades=true id='{{name}}' style='display: flex;margin-top:10px;border: solid 1px #deb887; width: {{OCWidth}}; height: {{OCHeight}}px; margin: auto;'></div>"
                 }
     return {
         getTag: function(tag){
@@ -644,7 +644,7 @@ class FOCJustInTime extends JSController{
         for(let f in OBj){
             let elem = DPVisible.hasOwnProperty(f);
             if(elem) {
-               InputsHTML += HTMLProp(f, OBj[f], DPVisible[f]);
+               InputsHTML +=  HTMLProp(f, OBj[f], DPVisible[f]);
             }
         }
 
@@ -663,7 +663,7 @@ class FOCJustInTime extends JSController{
         $("#StyleConteudo").html(InputsHTML);
         //$(".InputProperty").unbind();
         $(".InputProperty").on('keyup', function(){
-        PWJanela.setPropriedade(this)
+            PWJanela.setPropriedade(this)
         });
     }
     /**
@@ -674,7 +674,7 @@ class FOCJustInTime extends JSController{
         try{
             //console.log("criando Caixa de Propriedades")
             let o = obj.parentNode.parentNode.parentNode;
-            let node = o.nodeName;
+            let node = o.nodeName, ClickMINI = false;
             ObjetoSelecionado.setObjeto(o);
             let Exit = document.getElementById("CxPropriedadesWEBDesign");
             if( Exit == null){
@@ -717,9 +717,9 @@ class FOCJustInTime extends JSController{
                 CxF.style.left = event.currentTarget.offsetParent.offsetLeft + "px"
                 CxF.style.position = "absolute"
                 CxF.innerHTML = "<div id='CxPInterna'>\n\
-                                        <div id='BTCxPropriedades'>Caixa de Propriedades</div>\n\
+                                        <div id='BTCxPropriedades'>Caixa de Propriedades</div><div id='CxBtBotaoMinimizar'>-</div>\n\
                                         <div id='CxBotoesPropriedades'>"+ TabOptions() +"</div>\n\
-                                        <div style='position: relative;top: -37px;left: -1;width: 100%;'><button button='' type='button' class='btn btn-primary AtualizarDados' style='width: 101%;' onclick='CaixaFerramenta.closePropriedades()'>Close</button></div>\n\
+                                        <div id='CxPStatus' style='position: relative;top: -37px;left: -1;width: 100%;'><button button='' type='button' class='btn btn-primary AtualizarDados' style='width: 101%;' onclick='CaixaFerramenta.closePropriedades()'>Close</button></div>\n\
                                 </div>"
                 document.activeElement.appendChild(CxF);
                 $("#BTCxPropriedades").css("cursor","all-scroll");
@@ -734,6 +734,21 @@ class FOCJustInTime extends JSController{
                 $(".vDisplay").click(function(){
                     $(ObjetoSelecionado.getObjetoSelecionado()).fadeOut().fadeIn()
                 })
+                
+            $("#CxBtBotaoMinimizar").on("click",function(){
+                if(!ClickMINI){
+                    CxPropriedadesWEBDesign.style.height = "30px";
+                    CxBotoesPropriedades.style.display = "none";
+                    CxPStatus.style.display = "none";
+                    ClickMINI = true;
+                }else{
+                    CxPropriedadesWEBDesign.style.height = "auto";
+                    CxBotoesPropriedades.style.display = "";
+                    CxPStatus.style.display = "";
+                    ClickMINI = false;
+                }
+                
+            })
                 
                 this.getProperty();    
                                 
@@ -751,15 +766,15 @@ class FOCJustInTime extends JSController{
     
     CriarCaixaFerramenta(){
         try{
-            let CxF = document.createElement("div");
+            let CxF = document.createElement("div"), ClickMINI = false;
 
             CxF.id = "CxFerramentaWEBDesign";
             CxF.className = "CxFerramentaWEB"
 
             CxF.innerHTML = "<div id='CxFInterna'>\n\
-                                    <div id='BTCxFerramenta'>Caixa de Ferramenta</div>\n\
+                                    <div id='BTCxFerramenta'>Caixa de Ferramenta</div><div id='CxFBotaoMinimizar'>-</div>\n\
                                     <div id='CxBotoesFerramenta'></div>\n\
-                                    <div style='\n\
+                                    <div id='CxStatus' style='\n\
                                             position: relative;\n\
                                             top: -37px;\n\
                                             left: -1;\n\
@@ -778,10 +793,27 @@ class FOCJustInTime extends JSController{
 
             $("#BTCxFerramenta").on("mousedown", function(){
                 $("#CxFerramentaWEBDesign").draggable();
+                
             });
+            
             $("#BTCxFerramenta").on("mouseup", function(){
                 $("#CxFerramentaWEBDesign").draggable("destroy");
             });
+            
+            $("#CxFBotaoMinimizar").on("click",function(){
+                if(!ClickMINI){
+                    CxFerramentaWEBDesign.style.height = "30px";
+                    CxBotoesFerramenta.style.display = "none";
+                    CxStatus.style.display = "none";
+                    ClickMINI = true;
+                }else{
+                    CxFerramentaWEBDesign.style.height = "auto";
+                    CxBotoesFerramenta.style.display = "";
+                    CxStatus.style.display = "";
+                    ClickMINI = false;
+                }
+                
+            })
             this.addBotoes();            
         }catch(e){
             console.log(e)

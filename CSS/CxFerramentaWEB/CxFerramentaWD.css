@@ -11,7 +11,8 @@
 
  .CxPropriedadesWEB{
     border: solid 2px #0000002e;
-    width: fit-content;
+    width: 270px;
+    
     border-radius: 7px;
     position: absolute;
     right: 1%;
@@ -23,7 +24,19 @@
     height: 600px;
 }
 
+#CxFBotaoMinimizar{
+    color: white;
+    display: inline-block;
+    width: 10%;
+    text-align: center;
+    cursor: pointer;
+}
+
+
 #BTCxFerramenta, #BTCxPropriedades{
+    display: inline-block;
+    cursor: all-scroll;
+    width: 89%;
     border: solid 1px #00000008;
     border-radius: 2px;
     color: white;
@@ -31,6 +44,14 @@
     font-style: italic;
     font-family: initial;
     font-size: initial;
+}
+
+#CxBtBotaoMinimizar{
+    color: white;
+    display: inline-block;
+    width: 10%;
+    text-align: center;
+    cursor: pointer;
 }
 
 #CxBotoesFerramenta{

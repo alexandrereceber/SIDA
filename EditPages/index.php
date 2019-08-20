@@ -95,7 +95,7 @@ $Pagina = new LoadPages($Campo, $Saida);
                     ' . $Pagina->getCodigoHead() . '
                  </head>
                  <body>
-                     <div id="CodigoHTMLPWEB" data-editarpropriedades=false style="display:flex; width:99vw; height:100vh">
+                     <div id="CodigoHTMLPWEB" data-editarpropriedades=false style="display:block; width:99.5vw; height:100vh">
                          ' . $Pagina->getCodigoHTML() . '
                      </div>
                  </body>';            
@@ -111,7 +111,7 @@ $Pagina = new LoadPages($Campo, $Saida);
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 </head>
                 <body >
-                    <div id="CodigoHTMLPWEB" data-editarpropriedades=false style="display:flex; width:99vw; height:100vh">
+                    <div id="CodigoHTMLPWEB" data-editarpropriedades=false style="display:block; width:99.5vw; height:100vh">
                     </div>
                 </body>';          
         }
