@@ -30,7 +30,7 @@ and open the template in the editor.
         <script  src="../../../Scripts/bootbox/bootbox.js?5aa" defer="defer"></script>
         <script  src="../../../Scripts/jsControlador/jsConstroller.js?f4433" defer="defer"></script>     
         <script  src="../../../Componentes/Card.js?s=1dss9ssss" defer="defer"></script>  
-        <script  src="index.js?q=53d5s" defer="defer"></script>  
+        <script  src="index.js?q=<?php echo time() ?>" defer="defer"></script>  
         
     </head>
     <body>

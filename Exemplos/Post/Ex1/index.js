@@ -9,7 +9,7 @@
  *  
  * @type TabelaHTML
  */
-var tbl = new postView("http://"+ Padrao.getHostServer() +"/SistemaOnline/ControladorTabelas/");
+var tbl = new postView("http://"+ Padrao.getHostServer() +"/sistemaonline/ControladorTabelas/");
 /**
  * Função obrigatoriamente assíncrona que busca as informações e apresentam em uma caixa select os dados referentes à chve extrangeira
  * Usa a classe JSController para buscar somente os dados

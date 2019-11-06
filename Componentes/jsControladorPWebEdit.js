@@ -42,4 +42,4 @@ class ControladorPaginaWEBAtualizar extends JSController{
     }    
 }
 
-var CPaginaWEBAtualizar = new ControladorPaginaWEBAtualizar("http://"+ Padrao.getHostServer() +"/SistemaOnline/ControladorTabelas/");
+var CPaginaWEBAtualizar = new ControladorPaginaWEBAtualizar("http://"+ Padrao.getHostServer() +"/sistemaonline/ControladorTabelas/");

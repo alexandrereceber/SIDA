@@ -9,7 +9,7 @@ var Padrao = function(){
                                         class="" \n\
                                         id="myLoader" \n\
                                         style="z-index: 9999;top:'+ Scroll +'px;background-color: #efeef2b3;text-align: -webkit-center;position: absolute;left: 0px;width: 100%;height: 100%;"><div style="display: table-cell;vertical-align: middle;height: 50vw;"> \n\
-                                        <div style="height: 40vw;display: table-cell;vertical-align: middle;"><img src="http://'+ this.getHostServer() +'/SistemaOnline/Imagens/loads/loaders.gif" style="width: 50%;"></div>\n\
+                                        <div style="height: 40vw;display: table-cell;vertical-align: middle;"><img src="http://'+ this.getHostServer() +'/sistemaonline/Imagens/loads/loaders.gif" style="width: 50%;"></div>\n\
                                     </div></center>\n\
                                 </div>').addClass("modal-open");
             $(".fecharAjax").unbind();
@@ -31,7 +31,7 @@ var Padrao = function(){
             return Operacao.readyState;
         },
         getHostServer: function(){
-            return "10.56.35.223"
+            return "atmpts.onlinewebshop.net"
         }
     }
 }()

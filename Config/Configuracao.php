@@ -180,10 +180,10 @@ class ConfigSystema {
  */
 class AcessoBancoDados {
     private static $EngineSQL = "mysql"; //Banco de dados MYSQL|PostgreSQL|ORACLE
-    private static $Host = "localhost";
-    private static $NomeBancoDados = "bestPrice";
-    private static $Usuario = "root";
-    private static $Senha = "";
+    private static $Host = "fdb22.awardspace.net";
+    private static $NomeBancoDados = "3166238_cmdrmt";
+    private static $Usuario = "3166238_cmdrmt";
+    private static $Senha = "al#@09005";
     private static $UTF = "utf8";
 
     /**
@@ -217,6 +217,7 @@ class TabelaBancoDadosMD5{
      * @var array Nome das tabela mapeadas no sistema 
      */
     private static $Tabelas = [
+                                ["a6b6753266dba1dde6ddfdc59868747f",["CMRT", false]],
                                 ["e8dea8de71c5c357c2cc3c6fd3c6f7f0",["historico", false]],
                                 ["c258c5ff249499cba616a87265044965",["maquinas", false]],
                                 ["8b55f2ec606954f1401c8936e4e85dfb",["rhist", false]],
@@ -234,6 +235,7 @@ class TabelaBancoDadosMD5{
                                 ["9e9524af7942ab2ca5efc37ea3738659",["paginaweb", false]],
                                 ["8c6a97b2251d1d31c56e919458172e7f",["paginawebeditar", true]],
                                 ["d7227c5ee4543a7972360a111fa2305f",["produtos", false]],
+                                ["d03966c630d2636c39ecc32418a01b62",["acessoremoto", false]],
 
                             ];
     

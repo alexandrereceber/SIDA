@@ -9,7 +9,7 @@
  *  
  * @type TabelaHTML
  */
-var tbl = new cardView("http://"+ Padrao.getHostServer() +"/SistemaOnline/ControladorTabelas/");
+var tbl = new cardView("http://"+ Padrao.getHostServer() +"/sistemaonline/ControladorTabelas/");
 /**
  * Função obrigatoriamente assíncrona que busca as informações e apresentam em uma caixa select os dados referentes à chve extrangeira
  * Usa a classe JSController para buscar somente os dados
@@ -19,7 +19,7 @@ var tbl = new cardView("http://"+ Padrao.getHostServer() +"/SistemaOnline/Contro
  * @returns {unresolved}
  */
 tbl.FuncoesChvExt[0] =async function(v, p, o){
-           var Dados = new JSController("http://10.56.32.78:8080/SistemaOnline/ControladorTabelas/"), result;
+           var Dados = new JSController("http://10.56.32.78:8080/sistemaonline/ControladorTabelas/"), result;
            Dados.DadosEnvio.sendTabelas = "52c1592330d80979c6df1f8bd9d27be3"
            Dados.DadosEnvio.sendModoOperacao = "ab58b01839a6d92154c615db22ea4b8f";
            //Dados.sendFiltros = [false,false,false]
@@ -33,7 +33,7 @@ tbl.FuncoesChvExt[0] =async function(v, p, o){
  * Nome da tabela que esta no formato MD5 no arquivo de configuração Config/Configuracao.php
  * @type String
  */
-tbl.setTabela = "64b99121f7e18c0f8586f30bf7806212";
+tbl.setTabela = "a6b6753266dba1dde6ddfdc59868747f";
 tbl.setRecipiente = "dados";
 tbl.Name = "tbl";
 tbl.LayoutCards.Card.Descricao.Color = "red"

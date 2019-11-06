@@ -819,7 +819,7 @@ class FOCJustInTime extends JSController{
             })
             this.addBotoes();            
         }catch(e){
-            console.log(e)
+            console.log(e);
         }
 
     }
@@ -888,7 +888,6 @@ class FOCJustInTime extends JSController{
 var CaixaFerramenta = new FOCJustInTime();
 $(window).on("resize", function(){
     ObjetoSelecionado.setRenderizarCFI();
-    console.log("s")
 })
 
 document.addEventListener("keydown", moverObjetosInternos, true);

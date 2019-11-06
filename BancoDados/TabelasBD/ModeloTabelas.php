@@ -1067,6 +1067,7 @@ abstract class ModeloTabelas extends BDSQL{
      */
     private function GerarError(){
         $Numero = $this->getErros()[1];
+        file_put_contents(dirname(__DIR__) . "/log.txt", ($this->getErros()[0] . " - " . $this->getErros()[1] . " - " . $this->getErros()[2] . " - " . $this->getErros()[3] . " - " . $this->getErros()[4]));
         switch ($Numero) {
             case "HY093":
                 throw new Exception("Inválido o número de parâmetros.");
