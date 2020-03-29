@@ -22,7 +22,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css" >
         <link   rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
-        <link rel="stylesheet" href="./Login/TL.css?yy5">
+        <link rel="stylesheet" href="./Login/TL.css?<?php echo time();?>">
 
         <script defer src="https://code.getmdl.io/1.3.0/material.min.js" ></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" defer></script>
@@ -36,50 +36,50 @@ and open the template in the editor.
     </head>
     <body>
        
-    <center><div class="Caixa_Fundo">
-            <div class="Caixa_Flutuante">
-                <form action="#" onsubmit="EnviarDados(this)">
-                    <div class="Caixa_User_Pass">
-                        <div class="Linha_Titulo">
-                           <i class="material-icons" style="font-size: 7vw;color: #2802f7b8;">person</i>
-                        </div>
-                        <div class="Linha_Username">
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="text" id="user" name="username" >
-                              <label class="mdl-textfield__label" for="Username" >Usuário</label>
-                            </div>
-                        </div>
-                        <div class="Linha_Password">
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="password" id="sample3" name="password" >
-                              <label class="mdl-textfield__label" for="Password" >Senha</label>
-                            </div>
-                        </div>
-                        <div class="Linha_CPassword" id="RepeteSenha">
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="password" id="sample3" name="Contrapassword" >
-                              <label class="mdl-textfield__label" for="Password" >Repetir Senha</label>
-                            </div>
-                        </div>
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="android" style="text-align: left;color: #00000087;">
-                                <input type="checkbox" id="android" class="mdl-checkbox__input" onchange="setCadastrar(this)" />
-                              <span class="mdl-checkbox__label">1° Acesso</span> <!-- Checkbox Label -->
-                            </label>                            
-                        </div>
-                        <div class="Linha_BotaoEnvio">
-                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent LoginCadastrar">
-                              Acessar
-                            </button>   
-                        </div>
-                    </div>                    
-
-                    <div id="Linha_Password">
-
+    <div class="Caixa_Fundo container-fluid">
+        <div class="Caixa_Flutuante">
+            <form action="#" onsubmit="EnviarDados(this)">
+                <div class="Caixa_User_Pass">
+                    <div class="Linha_Titulo">
+                       <i class="material-icons LoginUser">person</i>
                     </div>
-                </form>                 
-            </div>
-        </div></center>
+                    <div class="Linha_Username">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label Usuario">
+                            <input class="mdl-textfield__input" type="text" id="user" name="username" >
+                          <label class="mdl-textfield__label" for="Username" >Usuário</label>
+                        </div>
+                    </div>
+                    <div class="Linha_Password">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label Senha">
+                            <input class="mdl-textfield__input" type="password" id="sample3" name="password" >
+                          <label class="mdl-textfield__label" for="Password" >Senha</label>
+                        </div>
+                    </div>
+                    <div class="Linha_CPassword" id="RepeteSenha">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="password" id="sample3" name="Contrapassword" >
+                          <label class="mdl-textfield__label" for="Password" >Repetir Senha</label>
+                        </div>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="android" style="text-align: left;color: #00000087;">
+                            <input type="checkbox" id="android" class="mdl-checkbox__input" onchange="setCadastrar(this)" />
+                          <span class="mdl-checkbox__label">1° Acesso</span> <!-- Checkbox Label -->
+                        </label>                            
+                    </div>
+                    <div class="Linha_BotaoEnvio">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent LoginCadastrar">
+                          Acessar
+                        </button>   
+                    </div>
+                </div>                    
+
+                <div id="Linha_Password">
+
+                </div>
+            </form>                 
+        </div>
+    </div>
 
 
         <dialog class="mdl-dialog">
