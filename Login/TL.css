@@ -1,30 +1,58 @@
 body{
     overflow: hidden;
     background-color: #9298e429;
-    display: table;
 }
 .Caixa_Fundo{
-    background-color: #1000ff24;
+    background: -webkit-linear-gradient(left, #6a11cb, #2575fc);
     width: 100vw;
-    height: 48vw;
-    display: table-cell;
+    height: 100vh;
+    display: flex;
     text-align: -webkit-center;
-    vertical-align: middle;
+    margin: auto;
+}
+
+@media only screen and (max-width: 1540px) {
+    .Caixa_Flutuante{
+        background: #ffffff;
+        border: solid 1px;
+        border-color: #6448f9;
+        width: 50vw;
+        display: inline-block;
+        border-radius: 20px;
+        border-left-width: 22px;
+        border-left-color: #6448f9;
+        margin: auto;
+    }
+    
+    .LoginUser{
+        font-size: 7vw;
+        color: #2802f7b8; 
+     }
+}
+
+@media only screen and (max-width: 640px) {
+    .Caixa_Flutuante{
+        background-color: #ffffff;
+        border: solid 1px;
+        border-color: #6448f9;
+        width: 100vw;
+        display: inline-block;
+        border-radius: 20px;
+        border-left-width: 22px;
+        border-left-color: #6448f9;
+        margin: auto;
+    }
+    .LoginUser{
+        font-size: 20vw;
+        color: #2802f7b8; 
+     }
+     
+     .Usuario, .Senha{
+         width: 60vw !important;
+     }
 }
 
 
-.Caixa_Flutuante{
-    background-color: #ffffff;
-    border: solid 1px;
-    border-color: #6448f9;
-    width: 50vw;
-    height: 26vw;
-    display: table-cell;
-    vertical-align: middle;
-    border-radius: 40px;
-    border-left-width: 22px;
-    border-left-color: #6448f9;
-}
 
 .Caixa_User_Pass{
 }
@@ -55,3 +83,4 @@ body{
 .Linha_CPassword{
     display: none;
 }
+
