@@ -72,9 +72,9 @@ body{
 .mdl-dialog{
     background-color: #4181e0fc;
     color: white;
-    width: 30vw;
-    border-top-left-radius: 50px;
-    border-bottom-right-radius: 50px;
+    /* width: 30vw; */
+    /* border-top-left-radius: 50px; */
+    /* border-bottom-right-radius: 50px; */
 }
 .mdl-dialog__content{
     color: white;
