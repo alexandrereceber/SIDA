@@ -12,17 +12,17 @@ RewriteRule (.*) pgweb/table-vs-div-o-bom [R]
 RewriteCond %{REQUEST_URI} ^/sistemaonline/Logar$
 RewriteRule (.*) Login/login.php?D=%{REQUEST_URI}&URL=%{QUERY_STRING} [L]
 
-RewriteCond %{REQUEST_URI} ^.*/editpg
-RewriteRule (.*) EditPages/index.php?editpgweb=$1&Req=%{HTTP_REFERER}&Metodo=%{REQUEST_METHOD}&SSL=%{HTTPS}&sendChaves=%{QUERY_STRING} [L]
+#RewriteCond %{REQUEST_URI} ^.*/editpg
+#RewriteRule (.*) EditPages/index.php?editpgweb=$1&Req=%{HTTP_REFERER}&Metodo=%{REQUEST_METHOD}&SSL=%{HTTPS}&sendChaves=%{QUERY_STRING} [L]
 
-RewriteCond %{REQUEST_URI} ^.*/pgweb/.*
-RewriteRule (.*) LoadPages/index.php?pgweb=%{REQUEST_URI}&URL=%{QUERY_STRING} [L]
+#RewriteCond %{REQUEST_URI} ^.*/pgweb/.*
+#RewriteRule (.*) LoadPages/index.php?pgweb=%{REQUEST_URI}&URL=%{QUERY_STRING} [L]
 
 RewriteCond %{REQUEST_URI} /ControladorTabelas/$
 RewriteRule (.*) Controller/TBL/Tabelas.php?URL=$1&Req=%{HTTP_REFERER}&Metodo=%{REQUEST_METHOD}&SSL=%{HTTPS} [L]
 
-RewriteCond %{REQUEST_URI} /ControladorPages/$
-RewriteRule (.*) Controller/LP/LoadPages.php?URL=$1&Req=%{HTTP_REFERER}&Metodo=%{REQUEST_METHOD}&SSL=%{HTTPS} [L]
+#RewriteCond %{REQUEST_URI} /ControladorPages/$
+#RewriteRule (.*) Controller/LP/LoadPages.php?URL=$1&Req=%{HTTP_REFERER}&Metodo=%{REQUEST_METHOD}&SSL=%{HTTPS} [L]
 
 #----------------------------------------------------------
 

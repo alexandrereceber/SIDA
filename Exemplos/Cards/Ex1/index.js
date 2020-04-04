@@ -33,7 +33,7 @@ tbl.FuncoesChvExt[0] =async function(v, p, o){
  * Nome da tabela que esta no formato MD5 no arquivo de configuração Config/Configuracao.php
  * @type String
  */
-tbl.setTabela = "64b99121f7e18c0f8586f30bf7806212";
+tbl.setTabela = "52c1592330d80979c6df1f8bd9d27be3";
 tbl.setRecipiente = "dados";
 tbl.Name = "tbl";
 tbl.LayoutCards.Card.Descricao.Color = "red"
