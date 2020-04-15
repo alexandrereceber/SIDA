@@ -2,7 +2,7 @@
 Options -Indexes
 
 RewriteEngine On
-RewriteBase /sistemaonline
+RewriteBase /CORAC
 
 #Redireciona qualquer pedido de pasta raiz para páginas WEB
 RewriteCond %{REQUEST_URI} ^/sistemaonline/$
@@ -23,7 +23,7 @@ RewriteRule (.*) Controller/TBL/Tabelas.php?URL=$1&Req=%{HTTP_REFERER}&Metodo=%{
 
 #Realiza a verificação sobre a validade do login do usuário.
 RewriteCond %{REQUEST_URI} /ValidarLogin/$
-RewriteRule (.*) Controller/Credencial/ValidarLogin.php?URL=$1&Req=%{HTTP_REFERER}&Metodo=%{REQUEST_METHOD}&SSL=%{HTTPS} [L]
+RewriteRule (.*) Credencial/ValidarLogin.php?URL=$1&Req=%{HTTP_REFERER}&Metodo=%{REQUEST_METHOD}&SSL=%{HTTPS} [L]
 
 #RewriteCond %{REQUEST_URI} /ControladorPages/$
 #RewriteRule (.*) Controller/LP/LoadPages.php?URL=$1&Req=%{HTTP_REFERER}&Metodo=%{REQUEST_METHOD}&SSL=%{HTTPS} [L]
