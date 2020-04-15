@@ -90,9 +90,17 @@
  *  14005 - Usuário bloqueado, favor entrar em contato com o administrador.
  *  14006 - Usuário ou senha inválidos.
  *  14007 - Esse usuário foi autenticado, mas não possui nenhum perfil de acesso. Favor entrar em contato com o administrador.
+  * 4590  - Error sessão. Controller - Cabecalho_Tabelas.php
  * 
- * 
- * 15 - 
+ * 15 - ValidarLigin.php
+ *  15000 - O arquivo de configuração não foi encontrado.
+ *  15001 - A configuração do banco de dados não foi encontrado.
+ *  15002 - O dispositivo utilidado não foi informado.
+ *  15003 - O dispositivo utilidado não é válido para esse sistema.
+ *  15003 - Usuário inválido para essa sessão, favor entrar em contato com o administrador!.
+ *  15004 - Tempos não estão sincronizados, favor entrar em contato com o administrador!.
+ *  15005 - Tempo de sessão expirado, favor efetuar login novamente!.
+ *  15006 - Login necessário, favor entrar em contato com o administrador!.
  * 
  * 
  * 16 - 
@@ -147,6 +155,11 @@
  * 
  * 40001 - O arquivo de cabecalho não foi encontrado. Cabeçalho Geral
  * 
+ * 3692 - 
+ * 3692 - 
+ * 3692 - 
+ * 3692 - 
+
  * ERROR ACIMA DE 10000 SÃO ERROS PERSONALIZADOS DAS FUNÇÕES DAS CLASSES DAS TABELAS EM SEUS MÉTODOS:
  * Jobs() - validarConteudoCampoRegex()
  */

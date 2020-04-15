@@ -31,7 +31,7 @@ error_reporting(0);
 if(@!include_once "../../Config/Configuracao.php"){ //Include que contém configurações padrões do sistema.
     $ResultRequest["Modo"]        = "Include";
     $ResultRequest["Error"]       = true;
-    $ResultRequest["Codigo"]      = 14000;
+    $ResultRequest["Codigo"]      = 15000;
     $ResultRequest["Mensagem"]    = "O arquivo de configuração não foi encontrado.";
     
     echo json_encode($ResultRequest);
@@ -54,11 +54,11 @@ $Dispositivo    = $_REQUEST["sendDispositivo"];
 try {
     if(ConfigSystema::getValidarDispositivo()){
         if(!$Dispositivo){
-            throw new Exception("O dispositivo utilidado não foi informado.", 14002);
+            throw new Exception("O dispositivo utilidado não foi informado.", 15002);
             exit;
                 }
         if(!ConfigSystema::getDispositivos($Dispositivo)){
-            throw new Exception("O dispositivo utilidado não é válido para esse sistema.", 14003);
+            throw new Exception("O dispositivo utilidado não é válido para esse sistema.", 15003);
             exit;
 
         }
@@ -71,7 +71,7 @@ try {
     if(!@include_once ConfigSystema::get_Path_Systema() . '/Account/SDados.php'){
         $ResultRequest["Modo"]        = "Include";
         $ResultRequest["Error"]    = true;
-        $ResultRequest["Codigo"]   = 3590;
+        $ResultRequest["Codigo"]   = 4590;
         $ResultRequest["Mensagem"] = "Error sessão. Controller";
 
         echo json_encode($ResultRequest); 
@@ -96,23 +96,23 @@ try {
             $vd = $SD->Validar_UserName();
             if(!$vd){
               $SD->DestruirSessao();
-              throw new Exception("Usuário inválido para essa sessão, favor entrar em contato com o administrador!.", 12003);  
+              throw new Exception("Usuário inválido para essa sessão, favor entrar em contato com o administrador!.", 15003);  
             }
 
             $vt = $SD->ValidarTime();
             if(!$vt){
               $SD->DestruirSessao();
-              throw new Exception("Tempos não estão sincronizados, favor entrar em contato com o administrador!.", 12004);  
+              throw new Exception("Tempos não estão sincronizados, favor entrar em contato com o administrador!.", 15004);  
             }
 
             $vts = $SD->ValidarTempoSessao();
             if(!$vts){
                 $SD->DestruirSessao();
-                throw new Exception("Tempo de sessão expirado, favor efetuar login novamente!.", 12005);
+                throw new Exception("Tempo de sessão expirado, favor efetuar login novamente!.", 15005);
             }
         }else{
             $SD->DestruirSessao();
-            throw new Exception("Login necessário.", 12006);
+            throw new Exception("Login necessário.", 15006);
         }
 
     } catch (Exception $exc) {
